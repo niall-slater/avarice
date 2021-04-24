@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 2c988722d8bcc9c418143ac3ba0e5bd2
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Vaporbyte Phat
+  fontNames:
+  - Vaporbyte Phat
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: b62e725d0b1101b4e998c32e370b0e69, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

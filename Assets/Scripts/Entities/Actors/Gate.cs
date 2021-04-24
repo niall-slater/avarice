@@ -21,7 +21,7 @@ public class Gate : Building
         Open = !Open;
         SelectSprite(Open);
 
-        GetComponent<Collider>().enabled = !Open;
+        gameObject.layer = Open ? LayerMask.NameToLayer("PassableColliders") : LayerMask.NameToLayer("Buildings");
     }
 
     private void SelectSprite(bool open)

@@ -61,6 +61,18 @@ public class Cursor : MonoBehaviour
         if (CurrentState == CursorState.BLUEPRINT)
         {
             SnapToGrid();
+            var builder = SelectedActors[0] as Builder;
+            if (builder == null)
+            {
+                Debug.LogError("Tried to build without a builder selected. This shouldn't happen.");
+                return;
+            }
+
+            var outOfRange = Vector3.Distance(transform.position, builder.transform.position) > builder.BuildRange;
+
+            var invalid = !Map.ValidateBuildingPlacement(SelectedBlueprint, transform.position);
+
+            Hologram.spriteRenderer.color = outOfRange || invalid ? Color.red : Color.cyan;
         }
 
         // Pressing button
@@ -292,7 +304,25 @@ public class Cursor : MonoBehaviour
     private void HandleBlueprintLeftClick()
     {
         var position = new Vector3(transform.position.x, transform.position.y, 0);
+
+        var builder = SelectedActors[0] as Builder;
+
+        if (builder == null)
+        {
+            Debug.LogError("Tried to build without a builder selected. This shouldn't happen.");
+            return;
+        }
+
+        var outOfRange = Vector3.Distance(transform.position, builder.transform.position) > builder.BuildRange;
+
+        if (outOfRange)
+        {
+            Debug.Log("Can't build there.");
+            return;
+        }
+
         var validPlacement = Map.ValidateBuildingPlacement(SelectedBlueprint, position);
+
         if (!validPlacement)
         {
             Debug.Log("Can't build there.");

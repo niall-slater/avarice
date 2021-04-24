@@ -61,7 +61,11 @@ public class Map : MonoBehaviour
                     result = true;
                 }
             }
+
+            return result;
         }
+
+        result = true;
 
         foreach (Building b in Map.Buildings)
         {

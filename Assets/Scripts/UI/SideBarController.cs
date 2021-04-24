@@ -6,6 +6,7 @@ using UnityEngine;
 public class SideBarController : MonoBehaviour
 {
     public GameObject BuildMenu;
+    public GameObject GateMenu;
 
     void Start()
     {
@@ -22,6 +23,17 @@ public class SideBarController : MonoBehaviour
                 OpenBuildMenu();
                 return;
             }
+
+            if (selected[0] is Gate gate)
+            {
+                OpenGateMenu(gate);
+                return;
+            }
+        }
+
+        if (selected.Count > 1)
+        {
+
         }
 
         CloseMenus();
@@ -30,10 +42,19 @@ public class SideBarController : MonoBehaviour
     private void CloseMenus()
     {
         BuildMenu.SetActive(false);
+        GateMenu.SetActive(false);
     }
 
     private void OpenBuildMenu()
     {
+        GateMenu.SetActive(false);
         BuildMenu.SetActive(true);
+    }
+
+    private void OpenGateMenu(Gate gate)
+    {
+        GateMenu.SetActive(true);
+        GateMenu.GetComponent<GateMenu>().SelectedGate = gate;
+        BuildMenu.SetActive(false);
     }
 }
