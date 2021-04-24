@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Helpers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,8 @@ public class Cursor : MonoBehaviour
     public BlueprintRenderer Hologram;
 
     private Rect SelectionRectangle;
+
+    public RectTransform SelectionRectUI;
 
     public enum CursorState
     {
@@ -62,6 +65,14 @@ public class Cursor : MonoBehaviour
             var mousePos = new Vector2(transform.position.x, transform.position.y);
             SelectionRectangle.size = mousePos - SelectionRectangle.position;
             Debug.DrawLine(mousePos, SelectionRectangle.position);
+            SelectionRectUI.gameObject.SetActive(true);
+            SelectionRectUI.pivot = CalculatePivotForRect(SelectionRectangle);
+            SelectionRectUI.position = new Vector2(SelectionRectangle.xMin, SelectionRectangle.yMin);
+            SelectionRectUI.sizeDelta = new Vector2(Mathf.Abs(SelectionRectangle.width), Mathf.Abs(SelectionRectangle.height));
+        }
+        else
+        {
+            SelectionRectUI.gameObject.SetActive(false);
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -183,6 +194,34 @@ public class Cursor : MonoBehaviour
             newRect.Set(rectToFix.xMax, rectToFix.yMax, -rectToFix.width, -rectToFix.height);
         }
         return newRect;
+    }
+
+    private Rect ConvertRectToScreen(Rect subject)
+    {
+        subject = ResolveNegativeSpaceInRectangle(subject);
+        var min = Camera.main.WorldToScreenPoint(subject.position);
+        var result = new Rect(min, subject.size * Camera.main.orthographicSize);
+        return result;
+    }
+
+    private Vector2 CalculatePivotForRect(Rect rectForPivot)
+    {
+        if (rectForPivot.width < 0 && rectForPivot.height > 0)
+        {
+            return new Vector2(1, 0);
+        }
+        else if (rectForPivot.width > 0 && rectForPivot.height < 0)
+        {
+            return new Vector2(0, 1);
+        }
+        else if (rectForPivot.width < 0 && rectForPivot.height < 0)
+        {
+            return Vector2.one;
+        }
+        else
+        {
+            return Vector2.zero;
+        }
     }
 
     private void Deselect()
