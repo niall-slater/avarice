@@ -45,9 +45,10 @@ public class Monster : Actor
     /// </summary>
     private Vector3 _moveTarget;
 
-    private float HP = 5f;
+    public float AttackPower = 1f;
 
-    public bool Alive;
+    public float AttackCooldown = 1f;
+    private float _attackCooldownTicker;
 
     /// <summary>
     /// One-off logic for starting a behaviour
@@ -71,8 +72,10 @@ public class Monster : Actor
     public void Reinitialise(Vector3 startPosition)
     {
         transform.position = startPosition;
-        Alive = true;
         gameObject.SetActive(true);
+
+        HP = GameVariables.DEFAULT_MONSTER_HP;
+
         var target = Map.GetRandomBuildingWithinRange(transform.position, AttackRadius);
         if (target == null)
         {
@@ -90,6 +93,9 @@ public class Monster : Actor
 
     void Update()
     {
+        if (_attackCooldownTicker > 0)
+            _attackCooldownTicker -= Time.deltaTime;
+
         switch (_currentBehaviour)
         {
             case Behaviour.WANDER:
@@ -103,24 +109,6 @@ public class Monster : Actor
         }
     }
 
-    public void Hurt(float amount)
-    {
-        HP -= amount;
-
-        if (HP <= 0f)
-        {
-            Kill();
-        }
-    }
-
-    private void Kill()
-    {
-        gameObject.SetActive(false);
-        Alive = false;
-        ActorEventHub.Instance.RaiseOnMonsterKilled(this);
-        GameController.RefreshMonsterCount();
-    }
-
     private void FixedUpdate()
     {
         var moveForce = (_moveTarget - transform.position).normalized * MoveForce;
@@ -131,6 +119,11 @@ public class Monster : Actor
 
     private void UpdateAttack()
     {
+        if (_target == null)
+        {
+            _currentBehaviour = Behaviour.WANDER;
+            return;
+        }
         _moveTarget = _target.transform.position;
     }
 
@@ -161,6 +154,30 @@ public class Monster : Actor
             _target = collision.gameObject.GetComponent<Marine>();
             CurrentBehaviour = Behaviour.ATTACK;
         }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (_attackCooldownTicker <= 0)
+        {
+            var actor = collision.gameObject.GetComponent<Actor>();
+            if (actor == null)
+            {
+                return;
+            }
+            if (actor.Team != Team)
+            {
+                actor.Hurt(AttackPower);
+                _attackCooldownTicker = AttackCooldown;
+            }
+        }
+    }
+
+    protected override void Kill()
+    {
+        gameObject.SetActive(false);
+        ActorEventHub.Instance.RaiseOnMonsterKilled(this);
+        GameController.RefreshMonsterCount();
     }
 
     public override void OnSelect()

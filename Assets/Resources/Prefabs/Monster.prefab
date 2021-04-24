@@ -48,11 +48,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef0a68fb3991e21498888a51c674d973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Team: 1
   Body: {fileID: 3564192338044413714}
   AttackRadius: 5
   WanderRadius: 15
   MoveForce: 5
   Alive: 0
+  AttackPower: 1
+  AttackCooldown: 1
 --- !u!50 &3564192338044413714
 Rigidbody2D:
   serializedVersion: 4

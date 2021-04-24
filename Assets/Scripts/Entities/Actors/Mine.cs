@@ -26,8 +26,10 @@ public class Mine : Building
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
+
         _spawnCreatureTicker -= Time.deltaTime;
         if (_spawnCreatureTicker < 0)
         {

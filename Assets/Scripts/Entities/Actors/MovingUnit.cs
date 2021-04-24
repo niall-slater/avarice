@@ -18,7 +18,7 @@ public abstract class MovingUnit : Actor
 
     protected virtual void FixedUpdate()
     {
-        if (Vector3.Distance(transform.position, _moveTarget) > 0.1f)
+        if (transform.position != _moveTarget)
         {
             transform.position = Vector3.MoveTowards(transform.position, _moveTarget, MoveSpeed * Time.deltaTime);
         }

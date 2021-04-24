@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class Gate : Building
 {
-    public float HP = 100f;
-
     public bool Open = false;
 
     public SpriteRenderer spriteRenderer;

@@ -24,6 +24,8 @@ public class GameController : MonoBehaviour
 
     public static int BulletCount;
 
+    public Transform CreaturesRoot;
+
     void Start()
     {
         Cash = 1500;
@@ -44,8 +46,9 @@ public class GameController : MonoBehaviour
         for (var i = 0; i < MonsterCap; i++)
         {
             var monster = MonsterFactory.Instance.CreateMonster(Vector3.zero);
-            monster.Alive = false;
+            monster.HP = 0;
             monster.gameObject.SetActive(false);
+            monster.transform.SetParent(CreaturesRoot, true);
             MonsterPool.Add(monster);
         }
     }

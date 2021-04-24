@@ -8,4 +8,5 @@ class PrefabPaths
 {
     public const string MonsterPrefab = "Prefabs/Monster";
     public const string BulletPrefab = "Prefabs/Bullet";
+    public const string DebrisPrefab = "Prefabs/Debris";
 }

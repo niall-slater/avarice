@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Wall : Building
 {
-    public float HP = 100f;
-
     public override void GiveRightClickOrder(Vector3 clickPosition)
     {
     }
@@ -16,17 +14,5 @@ public class Wall : Building
 
     public override void OnSelect()
     {
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

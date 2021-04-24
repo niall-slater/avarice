@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -52,29 +53,53 @@ public class Cursor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SelectedActors = SelectedActors.Where(x => x.Alive).ToList();
+
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
 
-        if (Input.GetMouseButtonDown(0) && CurrentState == CursorState.NORMAL)
+        // Pressing button
+        if (Input.GetMouseButtonDown(0))
         {
-            SelectionRectangle = new Rect(transform.position, Vector2.zero);
+            switch (CurrentState)
+            {
+                case CursorState.NORMAL:
+                    SelectionRectangle = new Rect(transform.position, Vector2.zero);
+                    break;
+                case CursorState.BLUEPRINT:
+                    HandleBlueprintLeftClick();
+                    break;
+            }
         }
 
-        if (Input.GetMouseButton(0) && CurrentState == CursorState.NORMAL)
+        // Holding button
+        if (Input.GetMouseButton(0))
         {
-            var mousePos = new Vector2(transform.position.x, transform.position.y);
-            SelectionRectangle.size = mousePos - SelectionRectangle.position;
-            Debug.DrawLine(mousePos, SelectionRectangle.position);
-            SelectionRectUI.gameObject.SetActive(true);
-            SelectionRectUI.pivot = CalculatePivotForRect(SelectionRectangle);
-            SelectionRectUI.position = new Vector2(SelectionRectangle.xMin, SelectionRectangle.yMin);
-            SelectionRectUI.sizeDelta = new Vector2(Mathf.Abs(SelectionRectangle.width), Mathf.Abs(SelectionRectangle.height));
+            switch (CurrentState)
+            {
+                case CursorState.NORMAL:
+                    {
+                        var mousePos = new Vector2(transform.position.x, transform.position.y);
+                        SelectionRectangle.size = mousePos - SelectionRectangle.position;
+                        SelectionRectUI.gameObject.SetActive(true);
+                        SelectionRectUI.pivot = CalculatePivotForRect(SelectionRectangle);
+                        SelectionRectUI.position = new Vector2(SelectionRectangle.xMin, SelectionRectangle.yMin);
+                        SelectionRectUI.sizeDelta = new Vector2(Mathf.Abs(SelectionRectangle.width), Mathf.Abs(SelectionRectangle.height));
+                    }
+                    break;
+                case CursorState.BLUEPRINT:
+                    {
+
+                    }
+                    break;
+            }
         }
         else
         {
             SelectionRectUI.gameObject.SetActive(false);
         }
 
+        // Releasing button
         if (Input.GetMouseButtonUp(0))
         {
             switch (CurrentState)
@@ -90,7 +115,6 @@ public class Cursor : MonoBehaviour
                     }
                     break;
                 case CursorState.BLUEPRINT:
-                    HandleBlueprintLeftClick();
                     break;
             }
         }
@@ -118,8 +142,26 @@ public class Cursor : MonoBehaviour
         //var hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), Vector2.zero, 1f, SelectionMask, 0f);
         //var actor = hit.collider.GetComponent<Actor>();
 
+        int xIndex = 0;
+        int yIndex = 0;
+        var tightness = 4f;
+        int columns = 4;
+
         foreach (Actor a in SelectedActors)
-            a.GiveRightClickOrder(transform.position);
+        {
+            var formationOffset = new Vector3(xIndex / tightness, yIndex / tightness, 0);
+            a.GiveRightClickOrder(transform.position + formationOffset);
+
+            if (xIndex < columns)
+            {
+                xIndex++;
+            }
+            else
+            {
+                xIndex = 0;
+                yIndex++;
+            }
+        }
     }
 
     private void HandleNormalLeftClick()
@@ -161,7 +203,7 @@ public class Cursor : MonoBehaviour
     {
         SelectionRectangle = ResolveNegativeSpaceInRectangle(SelectionRectangle);
         var units = GameObject.FindGameObjectsWithTag("Marine");
-        SelectedActors.Clear();
+        Deselect();
         foreach (GameObject unit in units)
         {
             Vector2 pos = unit.transform.position;
@@ -245,9 +287,6 @@ public class Cursor : MonoBehaviour
 
         var result = BuildingFactory.Instance.PlaceBlueprint(transform.position);
         Map.Buildings.Add(result);
-        
-        CurrentState = CursorState.NORMAL;
-        UIEventHub.Instance.RaiseOnBlueprintSelected(null);
     }
 
     private void HandleBlueprintRightClick()
