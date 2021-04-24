@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Team: 0
   HP: 25
-  MoveSpeed: 3
+  MoveSpeed: 1
   SelectionHalo: {fileID: 0}
   CollectedOre: 0
   CollectionRate: 50
