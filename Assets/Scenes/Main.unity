@@ -940,8 +940,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SelectionMask:
     serializedVersion: 2
-    m_Bits: 3360
-  SelectedActor: {fileID: 0}
+    m_Bits: 7456
+  SelectedActors: []
   SelectedBlueprint: {fileID: 0}
   Hologram: {fileID: 2082248093}
   CurrentState: 0
@@ -2660,7 +2660,7 @@ GameObject:
   - component: {fileID: 2082248091}
   - component: {fileID: 2082248092}
   - component: {fileID: 2082248093}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Blueprint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

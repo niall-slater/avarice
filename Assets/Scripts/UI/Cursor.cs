@@ -9,11 +9,13 @@ public class Cursor : MonoBehaviour
 {
     public LayerMask SelectionMask;
 
-    public Actor SelectedActor;
+    public List<Actor> SelectedActors;
 
     public Building SelectedBlueprint;
 
     public BlueprintRenderer Hologram;
+
+    private Rect SelectionRectangle;
 
     public enum CursorState
     {
@@ -27,6 +29,7 @@ public class Cursor : MonoBehaviour
     void Start()
     {
         CurrentState = CursorState.NORMAL;
+        SelectedActors = new List<Actor>();
         UIEventHub.Instance.OnBlueprintSelected += HandleBlueprintSelection;
     }
 
@@ -49,12 +52,31 @@ public class Cursor : MonoBehaviour
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && CurrentState == CursorState.NORMAL)
+        {
+            SelectionRectangle = new Rect(transform.position, Vector2.zero);
+        }
+
+        if (Input.GetMouseButton(0) && CurrentState == CursorState.NORMAL)
+        {
+            var mousePos = new Vector2(transform.position.x, transform.position.y);
+            SelectionRectangle.size = mousePos - SelectionRectangle.position;
+            Debug.DrawLine(mousePos, SelectionRectangle.position);
+        }
+
+        if (Input.GetMouseButtonUp(0))
         {
             switch (CurrentState)
             {
                 case CursorState.NORMAL:
-                    HandleNormalLeftClick();
+                    if (SelectionRectangle.size.magnitude > 1f)
+                    {
+                        HandleSelectionRectangleRelease();
+                    }
+                    else
+                    {
+                        HandleNormalLeftClick();
+                    }
                     break;
                 case CursorState.BLUEPRINT:
                     HandleBlueprintLeftClick();
@@ -62,7 +84,7 @@ public class Cursor : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonUp(1))
         {
             switch (CurrentState)
             {
@@ -78,14 +100,15 @@ public class Cursor : MonoBehaviour
 
     private void HandleNormalRightClick()
     {
-        if (SelectedActor == null)
+        if (SelectedActors.Count == 0)
             return;
 
         //TODO: give different orders depending on where we clicked
         //var hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), Vector2.zero, 1f, SelectionMask, 0f);
         //var actor = hit.collider.GetComponent<Actor>();
 
-        SelectedActor.GiveRightClickOrder(transform.position);
+        foreach (Actor a in SelectedActors)
+            a.GiveRightClickOrder(transform.position);
     }
 
     private void HandleNormalLeftClick()
@@ -102,40 +125,74 @@ public class Cursor : MonoBehaviour
             return;
         }
 
+        Deselect();
+        UIEventHub.Instance.RaiseOnSelectionChanged(SelectedActors);
+
+
         if (hit.collider.name == "Terrain")
         {
-
-            Deselect();
-            UIEventHub.Instance.RaiseOnSelectionChanged(SelectedActor);
             return;
         }
 
         var actor = hit.collider.GetComponent<Actor>();
 
-        if (actor == SelectedActor)
-        {
-            return;
-        }
-
-        Deselect();
-
         if (actor != null)
         {
             // Selecting actor
-            SelectedActor = actor;
-            UIEventHub.Instance.RaiseOnSelectionChanged(SelectedActor);
+            SelectedActors.Add(actor);
+            UIEventHub.Instance.RaiseOnSelectionChanged(SelectedActors);
             actor.OnSelect();
             return;
         }
     }
 
+    private void HandleSelectionRectangleRelease()
+    {
+        SelectionRectangle = ResolveNegativeSpaceInRectangle(SelectionRectangle);
+        var units = GameObject.FindGameObjectsWithTag("Marine");
+        SelectedActors.Clear();
+        foreach (GameObject unit in units)
+        {
+            Vector2 pos = unit.transform.position;
+            if (SelectionRectangle.Contains(pos))
+            {
+                SelectedActors.Add(unit.GetComponent<Actor>());
+            }
+        }
+        SelectionRectangle = new Rect(0, 0, 0, 0);
+
+        foreach (Actor a in SelectedActors)
+        {
+            a.OnSelect();
+        }
+    }
+
+    private Rect ResolveNegativeSpaceInRectangle(Rect rectToFix)
+    {
+        var newRect = new Rect();
+        if (rectToFix.width < 0 && rectToFix.height > 0)
+        {
+            newRect.Set(rectToFix.xMax, rectToFix.yMin, -rectToFix.width, rectToFix.height);
+        }
+        else if (rectToFix.width > 0 && rectToFix.height < 0)
+        {
+            newRect.Set(rectToFix.xMin, rectToFix.yMax, rectToFix.width, -rectToFix.height);
+        }
+        else if (rectToFix.width < 0 && rectToFix.height < 0)
+        {
+            newRect.Set(rectToFix.xMax, rectToFix.yMax, -rectToFix.width, -rectToFix.height);
+        }
+        return newRect;
+    }
+
     private void Deselect()
     {
-        if (SelectedActor == null)
-            return;
-        SelectedActor.OnDeselect();
-        SelectedActor = null;
-        UIEventHub.Instance.RaiseOnSelectionChanged(SelectedActor);
+        foreach (Actor a in SelectedActors)
+        {
+            a.OnDeselect();
+        }
+        SelectedActors.Clear();
+        UIEventHub.Instance.RaiseOnSelectionChanged(SelectedActors);
     }
 
     private void HandleBlueprintLeftClick()

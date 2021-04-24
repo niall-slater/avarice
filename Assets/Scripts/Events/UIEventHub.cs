@@ -23,8 +23,8 @@ public class UIEventHub
     /// <summary>
     /// The currently-selected actor changes.
     /// </summary>
-    public delegate void SelectionChanged(Actor selected); public event SelectionChanged OnSelectionChanged;
-    public void RaiseOnSelectionChanged(Actor selected) { OnSelectionChanged?.Invoke(selected); }
+    public delegate void SelectionChanged(List<Actor> selected); public event SelectionChanged OnSelectionChanged;
+    public void RaiseOnSelectionChanged(List<Actor> selected) { OnSelectionChanged?.Invoke(selected); }
 
     /// <summary>
     /// The player clicks on a blueprint they want to build.

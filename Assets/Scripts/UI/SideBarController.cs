@@ -13,12 +13,15 @@ public class SideBarController : MonoBehaviour
         CloseMenus();
     }
 
-    private void HandleSelectionChange(Actor selected)
+    private void HandleSelectionChange(List<Actor> selected)
     {
-        if (selected is Builder builder)
+        if (selected.Count == 1)
         {
-            OpenBuildMenu();
-            return;
+            if (selected[0] is Builder)
+            {
+                OpenBuildMenu();
+                return;
+            }
         }
 
         CloseMenus();
