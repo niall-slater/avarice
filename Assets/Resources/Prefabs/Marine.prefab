@@ -47,9 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f2b4112b29b7b540b124cbeb88af51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FireInterval: 0.2
   MoveSpeed: 3
   SelectionHalo: {fileID: 6858170742965696579}
+  FireInterval: 1
 --- !u!58 &1789720175
 CircleCollider2D:
   m_ObjectHideFlags: 0
