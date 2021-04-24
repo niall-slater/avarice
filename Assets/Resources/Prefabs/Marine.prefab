@@ -54,7 +54,10 @@ MonoBehaviour:
   HP: 10
   MoveSpeed: 1
   SelectionHalo: {fileID: 6858170742965696579}
-  FireInterval: 0.2
+  FireInterval: 0.05
+  LineOfSightMask:
+    serializedVersion: 2
+    m_Bits: 2048
   _audio: {fileID: 8412502668592327423}
   _clipShoot: {fileID: 8300000, guid: 039d29f7dddab9446a6ca5fffe64b5d6, type: 3}
 --- !u!58 &1789720175

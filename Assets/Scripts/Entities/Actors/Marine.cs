@@ -6,6 +6,8 @@ public class Marine : MovingUnit
 {
     public float FireInterval = .2f;
 
+    public LayerMask LineOfSightMask;
+    
     private float _fireTicker;
 
     private Actor _target;
@@ -36,7 +38,7 @@ public class Marine : MovingUnit
         _fireTicker -= Time.deltaTime;
         if (_fireTicker < 0)
         {
-            if (_target != null && _target.Alive)
+            if (_target != null && _target.Alive && !Physics2D.Linecast(transform.position, _target.transform.position, LineOfSightMask))
             {
                 FireAt(_target);
             }
@@ -55,7 +57,7 @@ public class Marine : MovingUnit
 
     public void SpawnBullet(Vector3 direction)
     {
-        _audio.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+        _audio.pitch = UnityEngine.Random.Range(0.5f, .8f);
         _audio.PlayOneShot(_clipShoot);
         GameController.SpawnBullet(transform.position, direction);
     }

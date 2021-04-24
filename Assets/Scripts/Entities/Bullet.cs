@@ -8,6 +8,8 @@ public class Bullet : MonoBehaviour
 
     public float Speed = 5f;
 
+    public float Damage = 0.1f;
+
     private float Lifetime = 5f;
 
     private Vector3 _movement;
@@ -19,7 +21,7 @@ public class Bullet : MonoBehaviour
         Alive = true;
         transform.position = position;
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle + 45f + 180f, Vector3.back);
+        transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.back);
 
         _movement = direction;
         GameController.BulletCount++;
@@ -40,7 +42,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Monster"))
         {
-            collision.gameObject.GetComponent<Monster>().Hurt(2f);
+            collision.gameObject.GetComponent<Monster>().Hurt(Damage);
         }
 
         Kill();

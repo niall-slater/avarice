@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
     public float CaravanInterval = 300f;
     public static float CaravanTimer;
 
-    public static int MonsterCap = 200;
+    public static int MonsterCap = 500;
     public static int BulletCap = 600;
 
     public static List<Monster> MonsterPool;

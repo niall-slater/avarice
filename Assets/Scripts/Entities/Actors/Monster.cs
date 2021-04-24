@@ -50,6 +50,11 @@ public class Monster : Actor
     public float AttackCooldown = 1f;
     private float _attackCooldownTicker;
 
+    public float WiggleMagnitude = 3f;
+    private Vector3 _wiggle;
+    public float WiggleInterval = 1f;
+    private float _wiggleTicker;
+
     /// <summary>
     /// One-off logic for starting a behaviour
     /// </summary>
@@ -93,6 +98,14 @@ public class Monster : Actor
 
     void Update()
     {
+        _wiggleTicker -= Time.deltaTime;
+
+        if (_wiggleTicker < 0)
+        {
+            _wiggle = UnityEngine.Random.insideUnitSphere * WiggleMagnitude;
+            _wiggleTicker = WiggleInterval;
+        }
+
         if (_attackCooldownTicker > 0)
             _attackCooldownTicker -= Time.deltaTime;
 
@@ -124,7 +137,8 @@ public class Monster : Actor
             _currentBehaviour = Behaviour.WANDER;
             return;
         }
-        _moveTarget = _target.transform.position;
+        _moveTarget = _target.transform.position + _wiggle;
+        _moveTarget.z = 0f;
     }
 
     private void UpdateWander()
