@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3564192338044413714}
   - component: {fileID: 5671235130174271941}
   - component: {fileID: 4224810661058242881}
+  - component: {fileID: 1351613460}
   m_Layer: 8
   m_Name: Monster
   m_TagString: Monster
@@ -105,6 +106,25 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
+--- !u!95 &1351613460
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112201678531948548}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 678d181cb18f155438a88ded906a08a1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1174248992889966177
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +217,7 @@ Animator:
   m_GameObject: {fileID: 1174248992889966177}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9302f17c146f4c6468362f02ddaf972b, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

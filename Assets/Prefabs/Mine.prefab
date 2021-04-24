@@ -127,8 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a8c7f9c93840bb48be1706bee526522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnCreatureIntervalVariance: 1.5
-  SpawnCreatureInterval: 2
+  SpawnCreatureIntervalVariance: 0.4
+  SpawnCreatureInterval: 0.2
   SpawnCreatureChance: 0.5
   OreValue: 0
   OreGrowthRate: 5
