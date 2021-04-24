@@ -50,7 +50,27 @@ public class Map : MonoBehaviour
 
     public static bool ValidateBuildingPlacement(Building selectedBlueprint, Vector3 position)
     {
-        //TODO: check against grid? somehow check whether it's okay to place a building here.
-        return true;
+        var result = false;
+
+        if (selectedBlueprint is Mine)
+        {
+            foreach (Vein v in Map.Veins)
+            {
+                if (v.transform.position == position)
+                {
+                    result = true;
+                }
+            }
+        }
+
+        foreach (Building b in Map.Buildings)
+        {
+            if (b.transform.position == position)
+            {
+                result = false;
+            }
+        }
+
+        return result;
     }
 }

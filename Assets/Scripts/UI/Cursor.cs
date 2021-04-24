@@ -58,6 +58,11 @@ public class Cursor : MonoBehaviour
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
 
+        if (CurrentState == CursorState.BLUEPRINT)
+        {
+            SnapToGrid();
+        }
+
         // Pressing button
         if (Input.GetMouseButtonDown(0))
         {
@@ -131,6 +136,14 @@ public class Cursor : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private void SnapToGrid()
+    {
+        var blockSize = .25f;
+        var x = Mathf.RoundToInt(transform.position.x / blockSize) * blockSize;
+        var y = Mathf.RoundToInt(transform.position.y / blockSize) * blockSize;
+        transform.position = new Vector3(x, y, 0);
     }
 
     private void HandleNormalRightClick()
@@ -278,14 +291,15 @@ public class Cursor : MonoBehaviour
 
     private void HandleBlueprintLeftClick()
     {
-        var validPlacement = Map.ValidateBuildingPlacement(SelectedBlueprint, transform.position);
+        var position = new Vector3(transform.position.x, transform.position.y, 0);
+        var validPlacement = Map.ValidateBuildingPlacement(SelectedBlueprint, position);
         if (!validPlacement)
         {
             Debug.Log("Can't build there.");
             return;
         }
 
-        var result = BuildingFactory.Instance.PlaceBlueprint(transform.position);
+        var result = BuildingFactory.Instance.PlaceBlueprint(position);
         Map.Buildings.Add(result);
     }
 
