@@ -10,6 +10,10 @@ public class Mine : Building
     public float SpawnCreatureChance = 0.5f;
     private float _spawnCreatureTicker;
 
+    public float OreValue;
+    public float OreGrowthRate;
+    public float OreCap;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +34,16 @@ public class Mine : Building
             if (UnityEngine.Random.value < SpawnCreatureChance)
                 SpawnCreature();
             ResetTicker();
+        }
+
+        if (OreValue < OreCap)
+        {
+            var growth = OreGrowthRate * Time.deltaTime;
+            OreValue += growth;
+        }
+        else
+        {
+            OreValue = OreCap;
         }
     }
 
