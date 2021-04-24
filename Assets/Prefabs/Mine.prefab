@@ -233,10 +233,11 @@ MonoBehaviour:
   Team: 0
   HP: 500
   _clipDestruction: {fileID: 8300000, guid: e0c710e89eac1884f9ffbab6edc76339, type: 3}
-  Cost: 800
+  Cost: 200
   OreValue: 0
   OreGrowthRate: 5
   OreCap: 2500
+  DrillSpeed: 6
   MiningDepth: 0
   OreReadout: {fileID: 4485025320054181219}
 --- !u!61 &8102126924591571068

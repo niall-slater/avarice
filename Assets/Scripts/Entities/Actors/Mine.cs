@@ -15,7 +15,7 @@ public class Mine : Building
     public float OreGrowthRate;
     public float OreCap;
 
-    private float DrillSpeed = 18f;
+    public float DrillSpeed = 18f;
     public float MiningDepth;
 
     public TextMeshProUGUI OreReadout;
