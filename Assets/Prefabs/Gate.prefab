@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Team: 0
   HP: 100
+  Cost: 100
   Open: 0
   spriteRenderer: {fileID: 4025215390702063624}
   SpriteClosed: {fileID: 21300000, guid: 1f9a7e59e3f3a4d45ab89ffda608893b, type: 3}

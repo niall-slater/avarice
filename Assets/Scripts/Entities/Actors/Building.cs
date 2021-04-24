@@ -8,6 +8,8 @@ public abstract class Building : Actor
     protected float HurtEffectCooldown = 1f;
     protected float _hurtEffectCooldownTicker;
 
+    public float Cost;
+
     protected virtual void Update()
     {
         if (_hurtEffectCooldownTicker > 0)

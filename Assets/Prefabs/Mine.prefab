@@ -231,6 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Team: 0
   HP: 500
+  Cost: 800
   OreValue: 0
   OreGrowthRate: 5
   OreCap: 2500

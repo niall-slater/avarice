@@ -318,6 +318,12 @@ public class Cursor : MonoBehaviour
 
     private void HandleBlueprintLeftClick()
     {
+        if (SelectedBlueprint.Cost > GameController.Cash)
+        {
+            Debug.Log("Not enough cash to build");
+            return;
+        }
+
         var position = new Vector3(transform.position.x, transform.position.y, 0);
 
         var builder = SelectedActors[0] as Builder;
@@ -346,6 +352,7 @@ public class Cursor : MonoBehaviour
 
         var result = BuildingFactory.Instance.PlaceBlueprint(position);
         Map.Buildings.Add(result);
+        GameController.Cash -= SelectedBlueprint.Cost;
     }
 
     private void HandleBlueprintRightClick()
