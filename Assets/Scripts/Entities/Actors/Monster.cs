@@ -177,6 +177,7 @@ public class Monster : Actor
     {
         gameObject.SetActive(false);
         ActorEventHub.Instance.RaiseOnMonsterKilled(this);
+        ActorEventHub.Instance.RaiseOnActorDestroyed(this);
         GameController.RefreshMonsterCount();
     }
 

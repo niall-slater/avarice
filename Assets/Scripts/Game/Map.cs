@@ -10,6 +10,19 @@ public class Map : MonoBehaviour
 
     public static List<Building> Buildings = new List<Building>();
 
+    private void Start()
+    {
+        ActorEventHub.Instance.OnActorDestroyed += HandleActorDestroyed;
+    }
+
+    private void HandleActorDestroyed(Actor actor)
+    {
+        if (actor is Building b)
+        {
+            Buildings.Remove(b);
+        }
+    }
+
     public static Building GetNearestBuilding(Vector3 position)
     {
         if (Buildings.Count == 0)

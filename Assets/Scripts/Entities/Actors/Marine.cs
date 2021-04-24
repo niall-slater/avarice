@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Marine : MovingUnit
 {
-    private float FireInterval = .075f;
+    public float FireInterval = .2f;
 
     private float _fireTicker;
 

@@ -35,5 +35,6 @@ public abstract class Actor : MonoBehaviour
     protected virtual void Kill()
     {
         Destroy(gameObject);
+        ActorEventHub.Instance.RaiseOnActorDestroyed(this);
     }
 }

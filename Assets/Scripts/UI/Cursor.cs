@@ -35,6 +35,21 @@ public class Cursor : MonoBehaviour
         CurrentState = CursorState.NORMAL;
         SelectedActors = new List<Actor>();
         UIEventHub.Instance.OnBlueprintSelected += HandleBlueprintSelection;
+        ActorEventHub.Instance.OnActorDestroyed += HandleActorDestroyed;
+    }
+
+    private void HandleActorDestroyed(Actor actor)
+    {
+        if (SelectedActors.Contains(actor))
+        {
+            SelectedActors.Remove(actor);
+
+            if (CurrentState == CursorState.BLUEPRINT)
+            {
+                CurrentState = CursorState.NORMAL;
+                UIEventHub.Instance.RaiseOnBlueprintSelected(null);
+            }
+        }
     }
 
     private void HandleBlueprintSelection(Building blueprint)

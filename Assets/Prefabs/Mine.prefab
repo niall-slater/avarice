@@ -232,7 +232,6 @@ MonoBehaviour:
   OreValue: 0
   OreGrowthRate: 5
   OreCap: 2500
-  DrillSpeed: 1
   MiningDepth: 0
   OreReadout: {fileID: 4485025320054181219}
 --- !u!61 &8102126924591571068
@@ -5081,8 +5080,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 250T
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a0d22f402c69b264f8b5ba694519c9af, type: 2}
+  m_sharedMaterial: {fileID: 6992459539960245801, guid: a0d22f402c69b264f8b5ba694519c9af,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

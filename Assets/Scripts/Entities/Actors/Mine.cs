@@ -24,6 +24,7 @@ public class Mine : Building
     void Start()
     {
         ResetTicker();
+        MiningDepth = 5000f;
     }
 
     private void ResetTicker()
@@ -82,6 +83,12 @@ public class Mine : Building
             SpawnCreatureIntervalVariance = .3f;
             SpawnCreatureInterval = .6f;
             SpawnCreatureChance = 0.9f;
+        }
+        else
+        {
+            SpawnCreatureIntervalVariance = .03f;
+            SpawnCreatureInterval = .05f;
+            SpawnCreatureChance = 0.95f;
         }
 
         _spawnCreatureTicker -= Time.deltaTime;

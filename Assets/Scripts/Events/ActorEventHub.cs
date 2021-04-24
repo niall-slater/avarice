@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,4 +32,11 @@ public class ActorEventHub
     /// </summary>
     public delegate void MonsterKilled(Monster monster); public event MonsterKilled OnMonsterKilled;
     public void RaiseOnMonsterKilled(Monster monster) { OnMonsterKilled?.Invoke(monster); }
+
+    /// <summary>
+    /// An actor is destroyed.
+    /// </summary>
+    public delegate void ActorDestroyed(Actor actor); public event ActorDestroyed OnActorDestroyed;
+    public void RaiseOnActorDestroyed(Actor actor) { OnActorDestroyed?.Invoke(actor); }
+
 }

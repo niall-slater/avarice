@@ -50,8 +50,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Team: 0
-  HP: 5
-  MoveSpeed: 2
+  HP: 10
+  MoveSpeed: 1
   SelectionHalo: {fileID: 6858170742965696579}
 --- !u!58 &1789720175
 CircleCollider2D:
