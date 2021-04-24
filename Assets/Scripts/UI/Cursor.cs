@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Cursor : MonoBehaviour
 {
@@ -31,11 +33,14 @@ public class Cursor : MonoBehaviour
     private void HandleBlueprintSelection(Building blueprint)
     {
         SelectedBlueprint = blueprint;
-        CurrentState = CursorState.BLUEPRINT;
         if (blueprint != null)
+        {
             Hologram.Refresh(blueprint.GetSprite());
-        else
-            Hologram.Clear();
+            CurrentState = CursorState.BLUEPRINT;
+            return;
+        }
+
+        Hologram.Clear();
     }
 
     // Update is called once per frame
@@ -90,10 +95,21 @@ public class Cursor : MonoBehaviour
         var hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), Vector2.zero, 1f, SelectionMask, 0f);
         Physics2D.queriesHitTriggers = cachedSetting;
 
+        // We hit nothing - most likely blocked by the UI
         if (!hit)
         {
+            // Return and let the UI system handle it.
             return;
         }
+
+        if (hit.collider.name == "Terrain")
+        {
+
+            Deselect();
+            UIEventHub.Instance.RaiseOnSelectionChanged(SelectedActor);
+            return;
+        }
+
         var actor = hit.collider.GetComponent<Actor>();
 
         if (actor == SelectedActor)
@@ -101,23 +117,25 @@ public class Cursor : MonoBehaviour
             return;
         }
 
-        if (SelectedActor != null)
-        {
-            SelectedActor.OnDeselect();
-            SelectedActor = null;
-        }
+        Deselect();
 
-        if (actor == null)
+        if (actor != null)
         {
-            // Deselecting actor
+            // Selecting actor
+            SelectedActor = actor;
             UIEventHub.Instance.RaiseOnSelectionChanged(SelectedActor);
+            actor.OnSelect();
             return;
         }
+    }
 
-        // Selecting actor
+    private void Deselect()
+    {
+        if (SelectedActor == null)
+            return;
+        SelectedActor.OnDeselect();
+        SelectedActor = null;
         UIEventHub.Instance.RaiseOnSelectionChanged(SelectedActor);
-        SelectedActor = actor;
-        actor.OnSelect();
     }
 
     private void HandleBlueprintLeftClick()
@@ -131,6 +149,7 @@ public class Cursor : MonoBehaviour
 
         var result = BuildingFactory.Instance.PlaceBlueprint(transform.position);
         Map.Buildings.Add(result);
+        
         CurrentState = CursorState.NORMAL;
         UIEventHub.Instance.RaiseOnBlueprintSelected(null);
     }

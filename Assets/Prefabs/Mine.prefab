@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1140572418253306550}
   - component: {fileID: 4025215390702063624}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 7124189442183761616}
   - component: {fileID: 8744295540162703822}
   - component: {fileID: 8102126924591571068}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mine
   m_TagString: Building
   m_Icon: {fileID: 0}
@@ -127,12 +127,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a8c7f9c93840bb48be1706bee526522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnCreatureIntervalVariance: 0
-  SpawnCreatureInterval: 0.1
-  SpawnCreatureChance: 1
+  SpawnCreatureIntervalVariance: 1.5
+  SpawnCreatureInterval: 2
+  SpawnCreatureChance: 0.5
   OreValue: 0
-  OreGrowthRate: 0
-  OreCap: 0
+  OreGrowthRate: 5
+  OreCap: 2500
 --- !u!61 &8102126924591571068
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 4180417400658816802}
   - component: {fileID: 7449583098692277188}
   - component: {fileID: 8534905084579036007}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -87,6 +87,11 @@ public class GameController : MonoBehaviour
         corpse.Reinitialise(position, direction);
     }
 
+    public static void RefreshMonsterCount()
+    {
+        MonsterCount = MonsterPool.Count(x => x.Alive);
+    }
+
     private static Monster GetInactiveMonsterFromPool()
     {
         return MonsterPool.FirstOrDefault(x => !x.Alive);
@@ -100,13 +105,10 @@ public class GameController : MonoBehaviour
     // Events for when a monster spawns. It's already been instantiated or pooled.
     private void HandleMonsterSpawn(Monster monster)
     {
-        MonsterCount++;
     }
 
     private void HandleMonsterDeath(Monster monster)
     {
-        MonsterCount--;
-        monster.gameObject.SetActive(false);
     }
 
     void Update()

@@ -85,6 +85,7 @@ public class Monster : Actor
         }
 
         ActorEventHub.Instance.RaiseOnMonsterSpawned(this);
+        GameController.RefreshMonsterCount();
     }
 
     void Update()
@@ -117,6 +118,7 @@ public class Monster : Actor
         gameObject.SetActive(false);
         Alive = false;
         ActorEventHub.Instance.RaiseOnMonsterKilled(this);
+        GameController.RefreshMonsterCount();
     }
 
     private void FixedUpdate()

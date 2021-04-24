@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2043371264591978455}
   - component: {fileID: 5294517996028812209}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4948836993788839038}
   - component: {fileID: 7450219536172687824}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Vein
   m_TagString: Untagged
   m_Icon: {fileID: 0}
