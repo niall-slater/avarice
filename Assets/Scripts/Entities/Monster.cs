@@ -160,4 +160,16 @@ public class Monster : Actor
             CurrentBehaviour = Behaviour.ATTACK;
         }
     }
+
+    public override void OnSelect()
+    {
+    }
+
+    public override void OnDeselect()
+    {
+    }
+
+    public override void GiveRightClickOrder(Vector3 clickPosition)
+    {
+    }
 }

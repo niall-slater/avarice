@@ -37,4 +37,16 @@ public class Mine : Building
     {
         GameController.SpawnMonster(transform.position);
     }
+
+    public override void OnSelect()
+    {
+    }
+
+    public override void OnDeselect()
+    {
+    }
+
+    public override void GiveRightClickOrder(Vector3 clickPosition)
+    {
+    }
 }

@@ -32,9 +32,7 @@ public class Bullet : MonoBehaviour
 
         if (Lifetime < 0)
         {
-            GameController.BulletCount--;
-            gameObject.SetActive(false);
-            Alive = false;
+            Kill();
         }
     }
 
@@ -45,8 +43,7 @@ public class Bullet : MonoBehaviour
             collision.gameObject.GetComponent<Monster>().Hurt(2f);
         }
 
-        gameObject.SetActive(false);
-        Alive = false;
+        Kill();
     }
 
     private void FixedUpdate()
