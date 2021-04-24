@@ -24,7 +24,6 @@ public class Mine : Building
     void Start()
     {
         ResetTicker();
-        MiningDepth = 5000f;
     }
 
     private void ResetTicker()

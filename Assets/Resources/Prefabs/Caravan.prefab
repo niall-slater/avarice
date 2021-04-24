@@ -53,6 +53,7 @@ MonoBehaviour:
   SelectionHalo: {fileID: 0}
   CollectedOre: 0
   CollectionRate: 50
+  CollectionRange: 0.5
   CurrentState: 0
 --- !u!58 &2430141921136499577
 CircleCollider2D:

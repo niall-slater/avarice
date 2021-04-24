@@ -10,6 +10,8 @@ public class Caravan : MovingUnit
 
     public float CollectionRate = 50f;
 
+    public float CollectionRange = 0.5f;
+
     private List<Mine> _itinerary;
 
     private Mine _currentMine;
@@ -34,9 +36,14 @@ public class Caravan : MovingUnit
             _itinerary = _itinerary.OrderBy(x => Vector3.Distance(transform.position, x.transform.position)).ToList();
         }
 
+        if (_itinerary.Count >= 1)
+        {
+            _currentMine = _itinerary[0];
+            _moveTarget = _currentMine.transform.position;
+        }
     }
 
-    private void Update()
+    protected void Update()
     {
         switch (CurrentState)
         {
@@ -54,7 +61,7 @@ public class Caravan : MovingUnit
                         return;
                     }
 
-                    if (transform.position == _moveTarget)
+                    if (Vector3.Distance(transform.position, _moveTarget) < CollectionRange)
                     {
                         var amountToCollect = CollectionRate * Time.deltaTime;
                         var collection = _currentMine.CollectOre(amountToCollect);
@@ -62,6 +69,7 @@ public class Caravan : MovingUnit
                         if (collection < amountToCollect)
                         {
                             NextMine();
+                            return;
                         }
                     }
 
@@ -73,7 +81,7 @@ public class Caravan : MovingUnit
                 }
             case JourneyState.GOING_HOME:
                 {
-                    if (transform.position == _moveTarget)
+                    if (Vector3.Distance(transform.position, _moveTarget) < CollectionRange)
                     {
                         GameController.Cash += CollectedOre;
                         Debug.Log("Caravan safely left the map");
@@ -92,6 +100,8 @@ public class Caravan : MovingUnit
             FinishRounds();
             return;
         }
+        _currentMine = _itinerary[0];
+        _moveTarget = _currentMine.transform.position;
     }
 
     private void FinishRounds()

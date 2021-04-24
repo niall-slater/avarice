@@ -8,6 +8,8 @@ public class GameController : MonoBehaviour
 {
     public static float Cash;
     public static float MaxDepthReached;
+
+    public float CaravanInterval = 300f;
     public static float CaravanTimer;
 
     public static int MonsterCap = 200;
@@ -30,7 +32,7 @@ public class GameController : MonoBehaviour
     {
         Cash = 1500;
         MaxDepthReached = 0f;
-        CaravanTimer = 300f;
+        CaravanTimer = CaravanInterval;
         MonsterPool = new List<Monster>();
         BulletPool = new List<Bullet>();
 
@@ -49,7 +51,7 @@ public class GameController : MonoBehaviour
         if (CaravanTimer <= 0f)
         {
             SpawnCaravan();
-            CaravanTimer = 300f;
+            CaravanTimer = CaravanInterval;
         }
     }
 
@@ -129,6 +131,6 @@ public class GameController : MonoBehaviour
     private void SpawnCaravan()
     {
         Debug.Log("Spawning caravan");
-        //throw new NotImplementedException();
+        var caravan = Instantiate(Resources.Load<GameObject>(PrefabPaths.CaravanPrefab), Map.GetIngress(), Quaternion.identity, null);
     }
 }
