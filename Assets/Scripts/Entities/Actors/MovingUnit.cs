@@ -6,7 +6,7 @@ public abstract class MovingUnit : Actor
 {
     public float MoveSpeed = 3f;
 
-    private Vector3 _moveTarget;
+    protected Vector3 _moveTarget;
 
     public GameObject SelectionHalo;
 

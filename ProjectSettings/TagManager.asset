@@ -7,6 +7,9 @@ TagManager:
   - Building
   - Monster
   - Marine
+  - Caravan
+  - Ingress
+  - Egress
   layers:
   - Default
   - TransparentFX

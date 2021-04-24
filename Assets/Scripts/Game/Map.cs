@@ -10,6 +10,9 @@ public class Map : MonoBehaviour
 
     public static List<Building> Buildings = new List<Building>();
 
+    public Transform CaravanEntryPoint;
+    public Transform CaravanExitPoint;
+
     private void Start()
     {
         ActorEventHub.Instance.OnActorDestroyed += HandleActorDestroyed;
@@ -85,6 +88,31 @@ public class Map : MonoBehaviour
             if (b.transform.position == position)
             {
                 result = false;
+            }
+        }
+
+        return result;
+    }
+
+    public static Vector3 GetIngress()
+    {
+        return GameObject.FindGameObjectWithTag("Ingress").transform.position;
+    }
+
+    public static Vector3 GetEgress()
+    {
+        return GameObject.FindGameObjectWithTag("Egress").transform.position;
+    }
+
+    public static List<Mine> GetMines()
+    {
+        var result = new List<Mine>();
+
+        foreach (Building b in Buildings)
+        {
+            if (b is Mine m)
+            {
+                result.Add(m);
             }
         }
 

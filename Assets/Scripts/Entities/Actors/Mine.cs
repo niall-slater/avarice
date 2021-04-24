@@ -32,6 +32,19 @@ public class Mine : Building
         _spawnCreatureTicker = SpawnCreatureInterval + UnityEngine.Random.Range(-SpawnCreatureIntervalVariance / 2f, SpawnCreatureIntervalVariance / 2f);
     }
 
+    public float CollectOre(float amount)
+    {
+        if (OreValue >= amount)
+        {
+            OreValue -= amount;
+            return amount;
+        }
+
+        var result = OreValue;
+        OreValue = 0;
+        return result;
+    }
+
     // Update is called once per frame
     protected override void Update()
     {
