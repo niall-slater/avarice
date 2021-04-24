@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Team: 0
   HP: 100
+  _clipDestruction: {fileID: 8300000, guid: e0c710e89eac1884f9ffbab6edc76339, type: 3}
   Cost: 100
   Open: 0
   spriteRenderer: {fileID: 4025215390702063624}

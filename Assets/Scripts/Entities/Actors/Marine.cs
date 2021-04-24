@@ -10,6 +10,11 @@ public class Marine : MovingUnit
 
     private Actor _target;
 
+    [SerializeField]
+    private AudioSource _audio;
+    [SerializeField]
+    private AudioClip _clipShoot;
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -50,6 +55,8 @@ public class Marine : MovingUnit
 
     public void SpawnBullet(Vector3 direction)
     {
+        _audio.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+        _audio.PlayOneShot(_clipShoot);
         GameController.SpawnBullet(transform.position, direction);
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public abstract class Building : Actor
 {
+    public AudioClip _clipDestruction;
+
     protected float HurtEffectCooldown = 1f;
     protected float _hurtEffectCooldownTicker;
 
@@ -25,5 +27,11 @@ public abstract class Building : Actor
             Instantiate(Resources.Load<GameObject>(PrefabPaths.DebrisPrefab), transform, false);
             _hurtEffectCooldownTicker = HurtEffectCooldown;
         }
+    }
+
+    protected override void Kill()
+    {
+        base.Kill();
+        GetComponent<AudioSource>().PlayOneShot(_clipDestruction);
     }
 }
