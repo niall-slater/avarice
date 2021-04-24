@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1789720175}
   - component: {fileID: 1789720178}
   - component: {fileID: 1983924501762662872}
+  - component: {fileID: 6520494187174522785}
   m_Layer: 10
   m_Name: Marine
   m_TagString: Marine
@@ -52,7 +53,6 @@ MonoBehaviour:
   HP: 5
   MoveSpeed: 2
   SelectionHalo: {fileID: 6858170742965696579}
-  FireInterval: 1
 --- !u!58 &1789720175
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -104,6 +104,27 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!50 &6520494187174522785
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749364752098661088}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &1749364752809834016
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +233,7 @@ Transform:
   m_GameObject: {fileID: 6858170742965696579}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1749364752098661094}
   m_RootOrder: 1
@@ -253,11 +274,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2110697867
+  m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0, g: 1, b: 0.116336346, a: 0.33333334}
+  m_Sprite: {fileID: 21300000, guid: 8cce172bb74f5dd45995e983b23d57e6, type: 3}
+  m_Color: {r: 0, g: 1, b: 0.116336346, a: 0.8509804}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

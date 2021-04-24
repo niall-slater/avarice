@@ -19,7 +19,7 @@ public class TopBarUpdater : MonoBehaviour
 
         CaravanReadout.text = $"CARAVAN IN: {niceTime}";
         MonsterReadout.text = $"{GameController.MonsterCount} ABERRATIONS";
-        CashReadout.text = $"${GameController.Cash}";
-        DepthReadout.text = $"DEPTH: {GameController.MaxDepthReached}M";
+        CashReadout.text = $"WEALTH EARNED:\n${GameController.Cash}";
+        DepthReadout.text = $"DEEPEST DRILL:\n{Mathf.RoundToInt(GameController.MaxDepthReached)}m";
     }
 }

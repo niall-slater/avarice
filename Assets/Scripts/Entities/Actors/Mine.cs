@@ -1,18 +1,24 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Mine : Building
 {
-    public float SpawnCreatureIntervalVariance = 1f;
-    public float SpawnCreatureInterval = 2.5f;
-    public float SpawnCreatureChance = 0.5f;
+    private float SpawnCreatureIntervalVariance = 1f;
+    private float SpawnCreatureInterval = 5f;
+    private float SpawnCreatureChance = 0.5f;
     private float _spawnCreatureTicker;
 
     public float OreValue;
     public float OreGrowthRate;
     public float OreCap;
+
+    private float DrillSpeed = 18f;
+    public float MiningDepth;
+
+    public TextMeshProUGUI OreReadout;
 
     // Start is called before the first frame update
     void Start()
@@ -30,13 +36,14 @@ public class Mine : Building
     {
         base.Update();
 
-        _spawnCreatureTicker -= Time.deltaTime;
-        if (_spawnCreatureTicker < 0)
+        MiningDepth += DrillSpeed * Time.deltaTime;
+
+        if (GameController.MaxDepthReached < MiningDepth)
         {
-            if (UnityEngine.Random.value < SpawnCreatureChance)
-                SpawnCreature();
-            ResetTicker();
+            GameController.MaxDepthReached = MiningDepth;
         }
+
+        UpdateSpawning();
 
         if (OreValue < OreCap)
         {
@@ -46,6 +53,45 @@ public class Mine : Building
         else
         {
             OreValue = OreCap;
+        }
+
+        OreReadout.text = $"{Mathf.RoundToInt(OreValue)}T";
+    }
+
+    private void UpdateSpawning()
+    {
+        if (MiningDepth < GameVariables.DEPTH_LEVEL_0)
+            return;
+
+        if (MiningDepth < GameVariables.DEPTH_LEVEL_1)
+        {
+             SpawnCreatureIntervalVariance = .5f;
+             SpawnCreatureInterval = 3f;
+             SpawnCreatureChance = 0.6f;
+        }
+
+        if (MiningDepth < GameVariables.DEPTH_LEVEL_2)
+        {
+            SpawnCreatureIntervalVariance = .4f;
+            SpawnCreatureInterval = 1.5f;
+            SpawnCreatureChance = 0.75f;
+        }
+
+        if (MiningDepth < GameVariables.DEPTH_LEVEL_3)
+        {
+            SpawnCreatureIntervalVariance = .3f;
+            SpawnCreatureInterval = .6f;
+            SpawnCreatureChance = 0.9f;
+        }
+
+        _spawnCreatureTicker -= Time.deltaTime;
+        if (_spawnCreatureTicker < 0)
+        {
+            if (UnityEngine.Random.value < SpawnCreatureChance)
+            {
+                SpawnCreature();
+            }
+            ResetTicker();
         }
     }
 

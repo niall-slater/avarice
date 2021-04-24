@@ -41,6 +41,18 @@ public class GameController : MonoBehaviour
         FillBulletPool();
     }
 
+
+    void Update()
+    {
+        CaravanTimer -= Time.deltaTime;
+
+        if (CaravanTimer <= 0f)
+        {
+            SpawnCaravan();
+            CaravanTimer = 300f;
+        }
+    }
+
     private void FillMonsterPool()
     {
         for (var i = 0; i < MonsterCap; i++)
@@ -112,17 +124,6 @@ public class GameController : MonoBehaviour
 
     private void HandleMonsterDeath(Monster monster)
     {
-    }
-
-    void Update()
-    {
-        CaravanTimer -= Time.deltaTime;
-
-        if (CaravanTimer <= 0f)
-        {
-            SpawnCaravan();
-            CaravanTimer = 300f;
-        }
     }
 
     private void SpawnCaravan()

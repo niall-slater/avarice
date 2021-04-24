@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Marine : MovingUnit
 {
-    public float FireInterval = .2f;
+    private float FireInterval = .075f;
 
     private float _fireTicker;
 
-    private Transform _target;
+    private Actor _target;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -21,7 +21,7 @@ public class Marine : MovingUnit
     {
         if (collision.gameObject.CompareTag("Monster"))
         {
-            _target = collision.gameObject.transform;
+            _target = collision.gameObject.GetComponent<Actor>();
         }
     }
 
@@ -31,15 +31,21 @@ public class Marine : MovingUnit
         _fireTicker -= Time.deltaTime;
         if (_fireTicker < 0)
         {
-            if (_target != null)
+            if (_target != null && _target.Alive)
+            {
                 FireAt(_target);
+            }
+            else
+            {
+                _target = null;
+            }
             _fireTicker = FireInterval;
         }
     }
 
-    private void FireAt(Transform target)
+    private void FireAt(Actor target)
     {
-        SpawnBullet((target.position - transform.position).normalized);
+        SpawnBullet((target.transform.position - transform.position).normalized);
     }
 
     public void SpawnBullet(Vector3 direction)
