@@ -154,5 +154,10 @@ public class Monster : Actor
             _target = collision.gameObject.GetComponent<Building>();
             CurrentBehaviour = Behaviour.ATTACK;
         }
+        if (collision.gameObject.CompareTag("Marine"))
+        {
+            _target = collision.gameObject.GetComponent<Marine>();
+            CurrentBehaviour = Behaviour.ATTACK;
+        }
     }
 }

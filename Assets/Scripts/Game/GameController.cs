@@ -11,12 +11,18 @@ public class GameController : MonoBehaviour
     public static float CaravanTimer;
 
     public static int MonsterCap = 200;
+    public static int BulletCap = 600;
 
     public static List<Monster> MonsterPool;
+    public static List<Bullet> BulletPool;
 
     private static int _monsterCount => MonsterPool.Count(x => x.Alive);
 
     public static int MonsterCount;
+
+    private static int _bulletCount => BulletPool.Count(x => x.Alive);
+
+    public static int BulletCount;
 
     void Start()
     {
@@ -24,11 +30,13 @@ public class GameController : MonoBehaviour
         MaxDepthReached = 0f;
         CaravanTimer = 300f;
         MonsterPool = new List<Monster>();
+        BulletPool = new List<Bullet>();
 
         ActorEventHub.Instance.OnMonsterSpawned += HandleMonsterSpawn;
         ActorEventHub.Instance.OnMonsterKilled += HandleMonsterDeath;
 
         FillMonsterPool();
+        FillBulletPool();
     }
 
     private void FillMonsterPool()
@@ -39,6 +47,17 @@ public class GameController : MonoBehaviour
             monster.Alive = false;
             monster.gameObject.SetActive(false);
             MonsterPool.Add(monster);
+        }
+    }
+
+    private void FillBulletPool()
+    {
+        for (var i = 0; i < BulletCap; i++)
+        {
+            var bullet = BulletFactory.Instance.CreateBullet(Vector3.zero, Vector3.zero);
+            bullet.Alive = false;
+            bullet.gameObject.SetActive(false);
+            BulletPool.Add(bullet);
         }
     }
 
@@ -55,9 +74,27 @@ public class GameController : MonoBehaviour
         corpse.Reinitialise(position);
     }
 
+    public static void SpawnBullet(Vector3 position, Vector3 direction)
+    {
+        if (BulletCount >= BulletCap)
+            return;
+
+        var corpse = GetInactiveBulletFromPool();
+
+        if (corpse == null)
+            return;
+
+        corpse.Reinitialise(position, direction);
+    }
+
     private static Monster GetInactiveMonsterFromPool()
     {
         return MonsterPool.FirstOrDefault(x => !x.Alive);
+    }
+
+    private static Bullet GetInactiveBulletFromPool()
+    {
+        return BulletPool.FirstOrDefault(x => !x.Alive);
     }
 
     // Events for when a monster spawns. It's already been instantiated or pooled.

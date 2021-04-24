@@ -7,4 +7,5 @@ using System.Threading.Tasks;
 class PrefabPaths
 {
     public const string MonsterPrefab = "Prefabs/Monster";
+    public const string BulletPrefab = "Prefabs/Bullet";
 }
