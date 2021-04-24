@@ -9,7 +9,9 @@ public class Cursor : MonoBehaviour
 
     public Actor SelectedActor;
 
-    public GameObject SelectedBlueprint;
+    public Building SelectedBlueprint;
+
+    public BlueprintRenderer Hologram;
 
     public enum CursorState
     {
@@ -23,6 +25,17 @@ public class Cursor : MonoBehaviour
     void Start()
     {
         CurrentState = CursorState.NORMAL;
+        UIEventHub.Instance.OnBlueprintSelected += HandleBlueprintSelection;
+    }
+
+    private void HandleBlueprintSelection(Building blueprint)
+    {
+        SelectedBlueprint = blueprint;
+        CurrentState = CursorState.BLUEPRINT;
+        if (blueprint != null)
+            Hologram.Refresh(blueprint.GetSprite());
+        else
+            Hologram.Clear();
     }
 
     // Update is called once per frame
@@ -58,15 +71,8 @@ public class Cursor : MonoBehaviour
         }
     }
 
-    private void HandleBlueprintRightClick()
-    {
-        CurrentState = CursorState.NORMAL;
-        //Clear current blueprint
-    }
-
     private void HandleNormalRightClick()
     {
-
         if (SelectedActor == null)
             return;
 
@@ -116,6 +122,22 @@ public class Cursor : MonoBehaviour
 
     private void HandleBlueprintLeftClick()
     {
-        
+        var validPlacement = Map.ValidateBuildingPlacement(SelectedBlueprint, transform.position);
+        if (!validPlacement)
+        {
+            Debug.Log("Can't build there.");
+            return;
+        }
+
+        var result = BuildingFactory.Instance.PlaceBlueprint(transform.position);
+        Map.Buildings.Add(result);
+        CurrentState = CursorState.NORMAL;
+        UIEventHub.Instance.RaiseOnBlueprintSelected(null);
+    }
+
+    private void HandleBlueprintRightClick()
+    {
+        CurrentState = CursorState.NORMAL;
+        UIEventHub.Instance.RaiseOnBlueprintSelected(null);
     }
 }

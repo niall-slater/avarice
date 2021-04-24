@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -44,6 +45,12 @@ public class Map : MonoBehaviour
         if (viableBuildings == null)
             return null;
 
-        return viableBuildings[Random.Range(0, viableBuildings.Count())];
+        return viableBuildings[UnityEngine.Random.Range(0, viableBuildings.Count())];
+    }
+
+    public static bool ValidateBuildingPlacement(Building selectedBlueprint, Vector3 position)
+    {
+        //TODO: check against grid? somehow check whether it's okay to place a building here.
+        return true;
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Gate : MonoBehaviour
+public class Gate : Building
 {
     public float HP = 100f;
 
@@ -32,5 +32,17 @@ public class Gate : MonoBehaviour
             spriteRenderer.sprite = SpriteOpen;
         else
             spriteRenderer.sprite = SpriteClosed;
+    }
+
+    public override void OnSelect()
+    {
+    }
+
+    public override void OnDeselect()
+    {
+    }
+
+    public override void GiveRightClickOrder(Vector3 clickPosition)
+    {
     }
 }

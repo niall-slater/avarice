@@ -9,4 +9,9 @@ public abstract class Actor : MonoBehaviour
     public abstract void OnDeselect();
 
     public abstract void GiveRightClickOrder(Vector3 clickPosition);
+
+    public virtual Sprite GetSprite()
+    {
+        return GetComponentInChildren<SpriteRenderer>().sprite;
+    }
 }

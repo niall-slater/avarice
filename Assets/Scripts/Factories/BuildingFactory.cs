@@ -23,11 +23,11 @@ class BuildingFactory
 
     public static void Destroy() { _instance = null; }
 
-    public GameObject CurrentBlueprint;
+    public Building CurrentBlueprint;
 
     public Building PlaceBlueprint(Vector3 position)
     {
-        var Building = GameObject.Instantiate(CurrentBlueprint, position, Quaternion.identity, null).GetComponent<Building>();
+        var Building = GameObject.Instantiate(CurrentBlueprint.gameObject, position, Quaternion.identity, null).GetComponent<Building>();
         return Building;
     }
 }

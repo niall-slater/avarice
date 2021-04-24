@@ -2,9 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wall : MonoBehaviour
+public class Wall : Building
 {
     public float HP = 100f;
+
+    public override void GiveRightClickOrder(Vector3 clickPosition)
+    {
+    }
+
+    public override void OnDeselect()
+    {
+    }
+
+    public override void OnSelect()
+    {
+    }
 
     // Start is called before the first frame update
     void Start()
