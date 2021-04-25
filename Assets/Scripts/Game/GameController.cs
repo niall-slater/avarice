@@ -128,7 +128,7 @@ public class GameController : MonoBehaviour
 
     private static Bullet GetInactiveBulletFromPool()
     {
-        return BulletPool.FirstOrDefault(x => !x.Alive);
+        return BulletPool.Find(x => !x.Alive);
     }
 
     // Events for when a monster spawns. It's already been instantiated or pooled.
