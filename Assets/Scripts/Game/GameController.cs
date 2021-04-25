@@ -104,6 +104,11 @@ public class GameController : MonoBehaviour
         corpse.Reinitialise(position, direction);
     }
 
+    public static void SpawnMarine(Vector3 position)
+    {
+        var marine = Instantiate(Resources.Load<GameObject>(PrefabPaths.MarinePrefab), position, Quaternion.identity, null);
+    }
+
     public static void RefreshMonsterCount()
     {
         MonsterCount = MonsterPool.Count(x => x.Alive);

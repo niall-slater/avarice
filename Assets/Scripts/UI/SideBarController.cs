@@ -7,6 +7,7 @@ public class SideBarController : MonoBehaviour
 {
     public GameObject BuildMenu;
     public GameObject GateMenu;
+    public GameObject BarracksMenu;
 
     void Start()
     {
@@ -29,6 +30,12 @@ public class SideBarController : MonoBehaviour
                 OpenGateMenu(gate);
                 return;
             }
+
+            if (selected[0] is Barracks barracks)
+            {
+                OpenBarracksMenu(barracks);
+                return;
+            }
         }
 
         if (selected.Count > 1)
@@ -43,11 +50,11 @@ public class SideBarController : MonoBehaviour
     {
         BuildMenu.SetActive(false);
         GateMenu.SetActive(false);
+        BarracksMenu.SetActive(false);
     }
 
     private void OpenBuildMenu()
     {
-        GateMenu.SetActive(false);
         BuildMenu.SetActive(true);
     }
 
@@ -55,6 +62,11 @@ public class SideBarController : MonoBehaviour
     {
         GateMenu.SetActive(true);
         GateMenu.GetComponent<GateMenu>().SelectedGate = gate;
-        BuildMenu.SetActive(false);
+    }
+
+    private void OpenBarracksMenu(Barracks barracks)
+    {
+        BarracksMenu.SetActive(true);
+        BarracksMenu.GetComponent<BarracksMenu>().SelectedBarracks = barracks;
     }
 }

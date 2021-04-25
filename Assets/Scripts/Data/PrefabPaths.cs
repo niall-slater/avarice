@@ -10,4 +10,5 @@ class PrefabPaths
     public const string BulletPrefab = "Prefabs/Bullet";
     public const string DebrisPrefab = "Prefabs/Debris";
     public const string CaravanPrefab = "Prefabs/Caravan";
+    public const string MarinePrefab = "Prefabs/Marine";
 }
