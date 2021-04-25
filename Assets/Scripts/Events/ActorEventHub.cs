@@ -14,6 +14,7 @@ public class ActorEventHub
             if (_instance == null)
             {
                 _instance = new ActorEventHub();
+                UIEventHub.Instance.OnSceneReload += Destroy;
             }
             return _instance;
         }

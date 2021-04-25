@@ -14,8 +14,14 @@ public class WinScreen : MonoBehaviour
     {
         var nextIndex = SceneManager.GetActiveScene().buildIndex + 1;
         if (SceneManager.GetSceneByBuildIndex(nextIndex) != null)
+        {
             SceneManager.LoadScene(nextIndex);
+            UIEventHub.Instance.RaiseOnSceneReload();
+        }
         else
-            Debug.LogError("No more scenes");
+        {
+            Debug.Log("No more scenes");
+            SceneManager.LoadScene(0);
+        }
     }
 }

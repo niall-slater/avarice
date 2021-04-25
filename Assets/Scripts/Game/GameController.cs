@@ -44,6 +44,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        PlayerUnits = new List<Actor>();
         CurrentState = VictoryState.IN_PROGRESS;
         Cash = 1500;
         MaxDepthReached = 0f;

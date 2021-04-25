@@ -13,6 +13,7 @@ public class UIEventHub
             if (_instance == null)
             {
                 _instance = new UIEventHub();
+                _instance.OnSceneReload += Destroy;
             }
             return _instance;
         }
@@ -31,4 +32,10 @@ public class UIEventHub
     /// </summary>
     public delegate void BlueprintSelected(Building blueprint); public event BlueprintSelected OnBlueprintSelected;
     public void RaiseOnBlueprintSelected(Building blueprint) { OnBlueprintSelected?.Invoke(blueprint); }
+
+    /// <summary>
+    /// The player loads a new scene.
+    /// </summary>
+    public delegate void SceneReload(); public event SceneReload OnSceneReload;
+    public void RaiseOnSceneReload() { OnSceneReload?.Invoke(); }
 }

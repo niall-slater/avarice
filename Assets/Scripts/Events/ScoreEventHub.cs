@@ -13,6 +13,7 @@ public class ScoreEventHub
             if (_instance == null)
             {
                 _instance = new ScoreEventHub();
+                UIEventHub.Instance.OnSceneReload += Destroy;
             }
             return _instance;
         }
