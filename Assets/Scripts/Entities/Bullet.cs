@@ -14,6 +14,8 @@ public class Bullet : MonoBehaviour
 
     private Vector3 _movement;
 
+    public TrailRenderer trail;
+
 
     public void Reinitialise(Vector3 position, Vector3 direction)
     {
@@ -26,6 +28,7 @@ public class Bullet : MonoBehaviour
         _movement = direction;
         GameController.RefreshBulletCount();
         Lifetime = 5f;
+        trail.enabled = true;
     }
 
     private void Update()
@@ -56,6 +59,7 @@ public class Bullet : MonoBehaviour
     public void Kill()
     {
         Alive = false;
+        trail.enabled = false;
         GameController.RefreshBulletCount();
         gameObject.SetActive(false);
     }

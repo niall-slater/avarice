@@ -64,6 +64,22 @@ public class Mine : Building
 
         if (GameController.MaxDepthReached < MiningDepth)
         {
+            if (GameController.MaxDepthReached < GameVariables.DEPTH_LEVEL_0 && MiningDepth >= GameVariables.DEPTH_LEVEL_0)
+            {
+                PopUpManager.CreatePopup("A RUMBLING FROM BELOW");
+            }
+            if (GameController.MaxDepthReached < GameVariables.DEPTH_LEVEL_1 && MiningDepth >= GameVariables.DEPTH_LEVEL_1)
+            {
+                PopUpManager.CreatePopup("THE DEEP IS STIRRING");
+            }
+            if (GameController.MaxDepthReached < GameVariables.DEPTH_LEVEL_2 && MiningDepth >= GameVariables.DEPTH_LEVEL_2)
+            {
+                PopUpManager.CreatePopup("THE HIVES AWAKEN");
+            }
+            if (GameController.MaxDepthReached < GameVariables.DEPTH_LEVEL_3 && MiningDepth >= GameVariables.DEPTH_LEVEL_3)
+            {
+                PopUpManager.CreatePopup("WE HAVE CRACKED THE\nVERY MANTLE OF GOD");
+            }
             GameController.MaxDepthReached = MiningDepth;
         }
 

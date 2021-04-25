@@ -10,6 +10,7 @@ TagManager:
   - Caravan
   - Ingress
   - Egress
+  - WorldCanvas
   layers:
   - Default
   - TransparentFX

@@ -15,6 +15,8 @@ public class BioBomb : Building
     void Start()
     {
         _fuseTicker = GameVariables.BIO_BOMB_FUSE;
+
+        PopUpManager.CreatePopup($"BIO BOMB ARMED:\n{Mathf.RoundToInt(_fuseTicker)} SECONDS");
     }
 
     // Update is called once per frame

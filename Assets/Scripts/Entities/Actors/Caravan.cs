@@ -41,6 +41,8 @@ public class Caravan : MovingUnit
             _currentMine = _itinerary[0];
             _moveTarget = _currentMine.transform.position;
         }
+
+        PopUpManager.CreatePopup("CARAVAN ARRIVED");
     }
 
     private void OnCollisionStay2D(Collision2D collision)

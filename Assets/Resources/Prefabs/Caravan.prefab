@@ -52,7 +52,7 @@ MonoBehaviour:
   MoveSpeed: 1
   SelectionHalo: {fileID: 0}
   CollectedOre: 0
-  CollectionRate: 50
+  CollectionRate: 500
   CollectionRange: 0.5
   CurrentState: 0
 --- !u!58 &2430141921136499577
