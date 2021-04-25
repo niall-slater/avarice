@@ -8453,6 +8453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartingCash: 1300
   CaravanInterval: 150
+  SwarmInterval: 60
   CreaturesRoot: {fileID: 1173292602}
   WinScreen: {fileID: 2093350664}
   LoseScreen: {fileID: 1418805521}

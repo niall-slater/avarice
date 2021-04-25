@@ -11,8 +11,11 @@ public class GameController : MonoBehaviour
     public static float Cash;
     public static float MaxDepthReached;
 
-    public float CaravanInterval = 5f;
+    public float CaravanInterval;
     public static float CaravanTimer;
+
+    public float SwarmInterval;
+    public static float _swarmTicker;
 
     public static int MonsterCap = 500;
     public static int BulletCap = 600;
@@ -52,6 +55,7 @@ public class GameController : MonoBehaviour
         CurrentState = VictoryState.IN_PROGRESS;
         Cash = StartingCash;
         MaxDepthReached = 0f;
+        _swarmTicker = SwarmInterval * 2f;
         CaravanTimer = CaravanInterval;
         MonsterPool = new List<Monster>();
         BulletPool = new List<Bullet>();
@@ -61,12 +65,29 @@ public class GameController : MonoBehaviour
 
         ActorEventHub.Instance.OnActorDestroyed += HandleActorDestroyed;
 
+        ScoreEventHub.Instance.OnBioBombBuilt += HandleBioBombBuilt;
         ScoreEventHub.Instance.OnBioBombDetonation += Win;
 
         PlayerUnits.AddRange(StartingUnits);
 
         FillMonsterPool();
         FillBulletPool();
+    }
+
+    private void OnDestroy()
+    {
+        ActorEventHub.Instance.OnMonsterSpawned -= HandleMonsterSpawn;
+        ActorEventHub.Instance.OnMonsterKilled -= HandleMonsterDeath;
+        ActorEventHub.Instance.OnActorDestroyed -= HandleActorDestroyed;
+        ScoreEventHub.Instance.OnBioBombBuilt -= HandleBioBombBuilt;
+        ScoreEventHub.Instance.OnBioBombDetonation -= Win;
+    }
+
+    private void HandleBioBombBuilt(BioBomb bomb)
+    {
+        var offset = Vector3.one + UnityEngine.Random.insideUnitSphere;
+        offset.z = 0;
+        CreateSwarm(bomb.transform.position + offset, 10, "SWARM ATTRACTED\nBY BOMB");
     }
 
     void Update()
@@ -77,6 +98,20 @@ public class GameController : MonoBehaviour
         {
             SpawnCaravan();
             CaravanTimer = CaravanInterval;
+        }
+
+        _swarmTicker -= Time.deltaTime;
+        
+        if (_swarmTicker <= 0f)
+        {
+            var depthMultiplier = MaxDepthReached / GameVariables.DEPTH_LEVEL_3;
+            if (MaxDepthReached >= GameVariables.DEPTH_LEVEL_3)
+            {
+                depthMultiplier = 1f;
+            }
+            _swarmTicker = SwarmInterval * UnityEngine.Random.Range(.75f, 1.25f);
+            _swarmTicker -= 30f * depthMultiplier;
+            CreateSwarm(Map.GetRandomPosition(), Mathf.RoundToInt(5 + 25 * depthMultiplier));
         }
     }
 
@@ -120,6 +155,19 @@ public class GameController : MonoBehaviour
     {
         var giant = MonsterFactory.Instance.CreateGiantMonster(position);
         giant.Reinitialise(position);
+    }
+
+    public static void CreateSwarm(Vector3 origin, int size, string text = "")
+    {
+        var textToUse = text == "" ? "SWARM DETECTED" : text;
+        for (var i = 0; i < size; i++)
+        {
+            var offset = UnityEngine.Random.insideUnitSphere;
+            offset.z = 0f;
+            SpawnMonster(origin + offset);
+        }
+        SpawnGiantMonster(origin);
+        PopUpManager.CreatePopup(textToUse, origin, 5f);
     }
 
     public static bool SpawnBullet(Vector3 position, Vector3 direction, Actor shooter)

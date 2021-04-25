@@ -133,4 +133,11 @@ public class Map : MonoBehaviour
 
         return result;
     }
+
+    public static Vector3 GetRandomPosition()
+    {
+        var result = UnityEngine.Random.insideUnitSphere * 6f;
+        result.z = 0f;
+        return result;
+    }
 }

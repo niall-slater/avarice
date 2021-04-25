@@ -14,6 +14,7 @@ public class DetailWindow : MonoBehaviour
     void Awake()
     {
         UIEventHub.Instance.OnSelectionChanged += HandleSelectionChanged;
+        gameObject.SetActive(false);
     }
 
     private void HandleSelectionChanged(List<Actor> selected)
