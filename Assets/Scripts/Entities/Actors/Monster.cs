@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Helpers;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -82,6 +83,7 @@ public class Monster : Actor
     {
         transform.position = startPosition;
         gameObject.SetActive(true);
+        KillCount = 0;
 
         HP = GameVariables.DEFAULT_MONSTER_HP;
 
@@ -96,6 +98,8 @@ public class Monster : Actor
             CurrentBehaviour = Behaviour.ATTACK;
             _target = target;
         }
+
+        ActorName = NameGenerator.GenerateName();
 
         ActorEventHub.Instance.RaiseOnMonsterSpawned(this);
         GameController.RefreshMonsterCount();
@@ -203,19 +207,19 @@ public class Monster : Actor
             }
             if (actor.Team != Team)
             {
-                actor.Hurt(AttackPower);
+                actor.Hurt(AttackPower, this);
                 Debug.Log("hurt " + actor.name + " for " + AttackPower + " dmg");
                 _attackCooldownTicker = AttackCooldown;
             }
         }
     }
 
-    protected override void Kill()
+    protected override void Kill(Actor killer)
     {
         gameObject.SetActive(false);
         HP = 0f;
         ActorEventHub.Instance.RaiseOnMonsterKilled(this);
-        ActorEventHub.Instance.RaiseOnActorDestroyed(this);
+        ActorEventHub.Instance.RaiseOnActorDestroyed(this, killer);
         ScoreEventHub.Instance.OnBioBombDetonation -= Kill;
         GameController.RefreshMonsterCount();
     }

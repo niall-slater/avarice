@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Helpers;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ public class Marine : MovingUnit
     protected override void Start()
     {
         base.Start();
+        ActorName = NameGenerator.GenerateName();
         _fireTicker = FireInterval + Random.Range(0, FireInterval);
     }
 
@@ -57,7 +59,7 @@ public class Marine : MovingUnit
 
     public void SpawnBullet(Vector3 direction)
     {
-        if (GameController.SpawnBullet(transform.position, direction))
+        if (GameController.SpawnBullet(transform.position, direction, this))
         {
             _audio.pitch = UnityEngine.Random.Range(0.5f, .8f);
             _audio.PlayOneShot(_clipShoot);

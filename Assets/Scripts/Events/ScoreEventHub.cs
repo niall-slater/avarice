@@ -42,8 +42,8 @@ public class ScoreEventHub
     /// <summary>
     /// The bio bomb detonates.
     /// </summary>
-    public delegate void BioBombDetonation(); public event BioBombDetonation OnBioBombDetonation;
-    public void RaiseOnBioBombDetonation() { OnBioBombDetonation?.Invoke(); }
+    public delegate void BioBombDetonation(BioBomb bomb); public event BioBombDetonation OnBioBombDetonation;
+    public void RaiseOnBioBombDetonation(BioBomb bomb) { OnBioBombDetonation?.Invoke(bomb); }
 
     /// <summary>
     /// The bio bomb is built.

@@ -16,7 +16,7 @@ public class AudioManager : MonoBehaviour
         ActorEventHub.Instance.OnActorDestroyed += HandleActorDestroyed;
     }
 
-    private void HandleActorDestroyed(Actor actor)
+    private void HandleActorDestroyed(Actor actor, Actor killer)
     {
         if (actor is Building)
         {

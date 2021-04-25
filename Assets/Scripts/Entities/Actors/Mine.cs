@@ -33,7 +33,7 @@ public class Mine : Building
         ScoreEventHub.Instance.OnBioBombDetonation += HandleDetonation;
     }
 
-    private void HandleDetonation()
+    private void HandleDetonation(BioBomb bomb)
     {
         SpawningDisabled = true;
     }

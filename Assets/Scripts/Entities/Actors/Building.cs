@@ -16,9 +16,9 @@ public abstract class Building : Actor
             _hurtEffectCooldownTicker -= Time.deltaTime;
     }
 
-    public override void Hurt(float amount)
+    public override void Hurt(float amount, Actor perpetrator)
     {
-        base.Hurt(amount);
+        base.Hurt(amount, perpetrator);
 
         if (_hurtEffectCooldownTicker <= 0)
         {

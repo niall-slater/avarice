@@ -122,7 +122,7 @@ public class GameController : MonoBehaviour
         giant.Reinitialise(position);
     }
 
-    public static bool SpawnBullet(Vector3 position, Vector3 direction)
+    public static bool SpawnBullet(Vector3 position, Vector3 direction, Actor shooter)
     {
         if (BulletCount >= BulletCap)
             return false;
@@ -132,7 +132,7 @@ public class GameController : MonoBehaviour
         if (corpse == null)
             return false;
 
-        corpse.Reinitialise(position, direction);
+        corpse.Reinitialise(position, direction, shooter);
 
         return true;
     }
@@ -178,8 +178,16 @@ public class GameController : MonoBehaviour
     {
     }
 
-    private void HandleActorDestroyed(Actor actor)
+    private void HandleActorDestroyed(Actor actor, Actor killer)
     {
+        if (actor.Team != killer.Team)
+        {
+            if (actor is Monster || actor is Marine)
+            {
+                killer.KillCount++;
+            }
+        }
+
         if (actor.Team == GameVariables.TEAM.PLAYER)
         {
             PlayerUnits.Remove(actor);
@@ -220,7 +228,7 @@ public class GameController : MonoBehaviour
         var caravan = Instantiate(Resources.Load<GameObject>(PrefabPaths.CaravanPrefab), Map.GetIngress(), Quaternion.identity, null);
     }
 
-    public void Win()
+    public void Win(BioBomb bomb)
     {
         CurrentState = VictoryState.WIN;
         Debug.Log("YOU WON!");

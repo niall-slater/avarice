@@ -37,7 +37,7 @@ public class ActorEventHub
     /// <summary>
     /// An actor is destroyed.
     /// </summary>
-    public delegate void ActorDestroyed(Actor actor); public event ActorDestroyed OnActorDestroyed;
-    public void RaiseOnActorDestroyed(Actor actor) { OnActorDestroyed?.Invoke(actor); }
+    public delegate void ActorDestroyed(Actor victim, Actor killer); public event ActorDestroyed OnActorDestroyed;
+    public void RaiseOnActorDestroyed(Actor victim, Actor killer) { OnActorDestroyed?.Invoke(victim, killer); }
 
 }

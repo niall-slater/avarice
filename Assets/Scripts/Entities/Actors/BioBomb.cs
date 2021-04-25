@@ -42,7 +42,7 @@ public class BioBomb : Building
     {
         Debug.Log("BIO BOMB DETONATED");
         Instantiate(ExplosionEffectPrefab, transform);
-        ScoreEventHub.Instance.RaiseOnBioBombDetonation();
+        ScoreEventHub.Instance.RaiseOnBioBombDetonation(this);
     }
 
 

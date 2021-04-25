@@ -31,7 +31,7 @@ public class BioBombTimer : MonoBehaviour
             _bomb = bomb;
     }
 
-    private void HandleActorDestroyed(Actor actor)
+    private void HandleActorDestroyed(Actor actor, Actor killer)
     {
         if (actor as BioBomb == _bomb)
         {
@@ -48,7 +48,7 @@ public class BioBombTimer : MonoBehaviour
         }
     }
 
-    private void HandleDetonation()
+    private void HandleDetonation(BioBomb bomb)
     {
         Reset();
     }

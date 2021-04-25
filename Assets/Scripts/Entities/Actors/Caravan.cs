@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Helpers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,9 @@ public class Caravan : MovingUnit
     protected override void Start()
     {
         base.Start();
+
+        ActorName = NameGenerator.GenerateName();
+
         CurrentState = JourneyState.MAKING_ROUNDS;
         _itinerary = Map.GetMines();
 
@@ -53,13 +57,13 @@ public class Caravan : MovingUnit
             if (building is Mine)
                 return;
 
-            building.Hurt(500f * Time.deltaTime);
+            building.Hurt(500f * Time.deltaTime, this);
         }
         if (collision.gameObject.CompareTag("Monster"))
         {
             var monster = collision.gameObject.GetComponent<Monster>();
 
-            monster.Hurt(50f * Time.deltaTime);
+            monster.Hurt(50f * Time.deltaTime, this);
         }
     }
 

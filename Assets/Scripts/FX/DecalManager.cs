@@ -30,7 +30,7 @@ public class DecalManager : MonoBehaviour
         ActorEventHub.Instance.OnActorDestroyed += HandleActorDestroyed;
     }
 
-    private void HandleActorDestroyed(Actor actor)
+    private void HandleActorDestroyed(Actor actor, Actor killer)
     {
         var pos = actor.transform.position;
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using static GameVariables;
 
@@ -15,6 +16,10 @@ public abstract class Actor : MonoBehaviour
 
     public bool Alive => HP > 0;
 
+    public string ActorName = "Actor";
+
+    public int KillCount;
+
     public virtual Sprite GetSprite()
     {
         return GetComponentInChildren<SpriteRenderer>().sprite;
@@ -22,19 +27,19 @@ public abstract class Actor : MonoBehaviour
 
     public float HP = 5f;
 
-    public virtual void Hurt(float amount)
+    public virtual void Hurt(float amount, Actor damageSource)
     {
         HP -= amount;
 
         if (HP <= 0f)
         {
-            Kill();
+            Kill(damageSource);
         }
     }
 
-    protected virtual void Kill()
+    protected virtual void Kill(Actor killer)
     {
         Destroy(gameObject);
-        ActorEventHub.Instance.RaiseOnActorDestroyed(this);
+        ActorEventHub.Instance.RaiseOnActorDestroyed(this, killer);
     }
 }

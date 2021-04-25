@@ -16,11 +16,14 @@ public class Bullet : MonoBehaviour
 
     public TrailRenderer trail;
 
+    private Actor _shooter;
 
-    public void Reinitialise(Vector3 position, Vector3 direction)
+
+    public void Reinitialise(Vector3 position, Vector3 direction, Actor shooter)
     {
         gameObject.SetActive(true);
         Alive = true;
+        _shooter = shooter;
         transform.position = position;
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.back);
@@ -45,7 +48,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Monster"))
         {
-            collision.gameObject.GetComponent<Monster>().Hurt(Damage);
+            collision.gameObject.GetComponent<Monster>().Hurt(Damage, _shooter);
         }
 
         Kill();

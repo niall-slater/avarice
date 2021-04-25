@@ -2,9 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageField : MonoBehaviour
+public class DamageField : Actor
 {
     public float DamagePerFrame;
+
+    public override void GiveRightClickOrder(Vector3 clickPosition)
+    {
+    }
+
+    public override void OnDeselect()
+    {
+    }
+
+    public override void OnSelect()
+    {
+    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -12,6 +24,6 @@ public class DamageField : MonoBehaviour
         if (other == null)
             return;
 
-        other.Hurt(DamagePerFrame);
+        other.Hurt(DamagePerFrame, this);
     }
 }
