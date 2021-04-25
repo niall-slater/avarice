@@ -30,8 +30,21 @@ public class GameController : MonoBehaviour
 
     public Transform CreaturesRoot;
 
+    public GameObject WinScreen;
+    public GameObject LoseScreen;
+
+    public enum VictoryState
+    {
+        IN_PROGRESS,
+        WIN,
+        LOSE
+    }
+
+    public VictoryState CurrentState;
+
     void Start()
     {
+        CurrentState = VictoryState.IN_PROGRESS;
         Cash = 1500;
         MaxDepthReached = 0f;
         CaravanTimer = CaravanInterval;
@@ -42,6 +55,8 @@ public class GameController : MonoBehaviour
         ActorEventHub.Instance.OnMonsterKilled += HandleMonsterDeath;
 
         ActorEventHub.Instance.OnActorDestroyed += HandleActorDestroyed;
+
+        ScoreEventHub.Instance.OnBioBombDetonation += Win;
 
         FillMonsterPool();
         FillBulletPool();
@@ -156,6 +171,11 @@ public class GameController : MonoBehaviour
         {
             PlayerUnits.Remove(actor);
 
+            if (CurrentState != VictoryState.IN_PROGRESS)
+            {
+                return;
+            }
+
             //You can still win if you have a builder, a barracks or a biobomb
 
             if (PlayerUnits.Count == 0)
@@ -187,13 +207,17 @@ public class GameController : MonoBehaviour
         var caravan = Instantiate(Resources.Load<GameObject>(PrefabPaths.CaravanPrefab), Map.GetIngress(), Quaternion.identity, null);
     }
 
-    public static void Win()
+    public void Win()
     {
+        CurrentState = VictoryState.WIN;
         Debug.Log("YOU WON!");
+        WinScreen.SetActive(true);
     }
 
-    public static void Lose(string reason)
+    public void Lose(string reason)
     {
+        CurrentState = VictoryState.LOSE;
         Debug.Log("YOU LOST:\n" + reason);
+        LoseScreen.SetActive(true);
     }
 }

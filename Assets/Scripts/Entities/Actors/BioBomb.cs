@@ -7,7 +7,11 @@ using UnityEngine;
 public class BioBomb : Building
 {
     private float _fuseTicker;
-    
+
+    public GameObject ExplosionEffectPrefab;
+
+    private bool _detonated;
+
     void Start()
     {
         _fuseTicker = GameVariables.BIO_BOMB_FUSE;
@@ -18,10 +22,14 @@ public class BioBomb : Building
     {
         base.Update();
 
+        if (_detonated)
+            return;
+
         _fuseTicker -= Time.deltaTime;
 
         if (_fuseTicker <= 0)
         {
+            _detonated = true;
             Detonate();
         }
     }
@@ -29,7 +37,8 @@ public class BioBomb : Building
     private void Detonate()
     {
         Debug.Log("BIO BOMB DETONATED");
-        GameController.Win();
+        Instantiate(ExplosionEffectPrefab, transform);
+        ScoreEventHub.Instance.RaiseOnBioBombDetonation();
     }
 
 

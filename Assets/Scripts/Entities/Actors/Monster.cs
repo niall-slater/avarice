@@ -99,6 +99,7 @@ public class Monster : Actor
 
         ActorEventHub.Instance.RaiseOnMonsterSpawned(this);
         GameController.RefreshMonsterCount();
+        ScoreEventHub.Instance.OnBioBombDetonation += Kill;
     }
 
     void Update()
@@ -211,8 +212,10 @@ public class Monster : Actor
     protected override void Kill()
     {
         gameObject.SetActive(false);
+        HP = 0f;
         ActorEventHub.Instance.RaiseOnMonsterKilled(this);
         ActorEventHub.Instance.RaiseOnActorDestroyed(this);
+        ScoreEventHub.Instance.OnBioBombDetonation -= Kill;
         GameController.RefreshMonsterCount();
     }
 

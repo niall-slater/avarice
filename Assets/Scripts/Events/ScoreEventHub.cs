@@ -37,4 +37,10 @@ public class ScoreEventHub
     /// </summary>
     public delegate void CashAmountUpdated(float cashChange); public event CashAmountUpdated OnCashAmountUpdated;
     public void RaiseOnCashAmountUpdated(float cashChange) { OnCashAmountUpdated?.Invoke(cashChange); }
+
+    /// <summary>
+    /// The cash amount is updated.
+    /// </summary>
+    public delegate void BioBombDetonation(); public event BioBombDetonation OnBioBombDetonation;
+    public void RaiseOnBioBombDetonation() { OnBioBombDetonation?.Invoke(); }
 }

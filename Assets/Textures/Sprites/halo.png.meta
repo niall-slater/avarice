@@ -1,7 +1,28 @@
 fileFormatVersion: 2
 guid: 8cce172bb74f5dd45995e983b23d57e6
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 6493497552717572729
+    second: halo_0
+  - first:
+      213: -3736805898914166300
+    second: halo_1
+  - first:
+      213: 6107762612839455842
+    second: halo_2
+  - first:
+      213: 9143041552301796862
+    second: halo_3
+  - first:
+      213: 4782140371877117093
+    second: halo_4
+  - first:
+      213: -1918636157729512846
+    second: halo_5
+  - first:
+      213: 176482867798238330
+    second: halo_6
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -109,7 +130,154 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: halo_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 21.333332
+        width: 10.666667
+        height: 10.666667
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97a6993ce998d1a50800000000000000
+      internalID: 6493497552717572729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: halo_1
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 21.333332
+        width: 10.666667
+        height: 10.666667
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e903a855d2342cc0800000000000000
+      internalID: -3736805898914166300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: halo_2
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 21.333332
+        width: 10.666667
+        height: 10.666667
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26c15be6cb123c450800000000000000
+      internalID: 6107762612839455842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: halo_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 11.333333
+        width: 10.666667
+        height: 10.666667
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efda59399db92ee70800000000000000
+      internalID: 9143041552301796862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: halo_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1.333333
+        width: 10.666667
+        height: 10.666667
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ac3ac3d4539d5240800000000000000
+      internalID: 4782140371877117093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: halo_5
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 1.333333
+        width: 10.666667
+        height: 10.666667
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 272ef457492af55e0800000000000000
+      internalID: -1918636157729512846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: halo_6
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 1.333333
+        width: 10.666667
+        height: 10.666667
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a746e04bb3ef27200800000000000000
+      internalID: 176482867798238330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

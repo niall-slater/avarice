@@ -132,6 +132,8 @@ MonoBehaviour:
   Team: 0
   HP: 5
   Cost: 2500
+  ExplosionEffectPrefab: {fileID: 4355959393631957318, guid: beae9241fbe9cf642a3e317227256556,
+    type: 3}
 --- !u!61 &8102126924591571068
 BoxCollider2D:
   m_ObjectHideFlags: 0

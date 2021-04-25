@@ -21,12 +21,20 @@ public class Mine : Building
     public float DrillSpeed = 18f;
     public float MiningDepth;
 
+    public bool SpawningDisabled;
+
     public TextMeshProUGUI OreReadout;
 
     // Start is called before the first frame update
     void Start()
     {
         ResetTicker();
+        ScoreEventHub.Instance.OnBioBombDetonation += HandleDetonation;
+    }
+
+    private void HandleDetonation()
+    {
+        SpawningDisabled = true;
     }
 
     private void ResetTicker()
@@ -76,7 +84,7 @@ public class Mine : Building
 
     private void UpdateSpawning()
     {
-        if (MiningDepth < GameVariables.DEPTH_LEVEL_0)
+        if (MiningDepth < GameVariables.DEPTH_LEVEL_0 || SpawningDisabled)
             return;
 
         if (MiningDepth < GameVariables.DEPTH_LEVEL_1)
