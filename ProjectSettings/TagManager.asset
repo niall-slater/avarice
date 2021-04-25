@@ -12,6 +12,7 @@ TagManager:
   - Egress
   - WorldCanvas
   - Builder
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - Terrain
   - Blockers
   - PassableColliders
-  - 
+  - MonstersCosmetic
   - 
   - 
   - 

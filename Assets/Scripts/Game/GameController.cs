@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour
     public float SwarmInterval;
     public static float _swarmTicker;
 
-    public static int MonsterCap = 500;
+    public static int MonsterCap = 600;
     public static int BulletCap = 600;
 
     public static List<Monster> MonsterPool;
@@ -149,12 +149,21 @@ public class GameController : MonoBehaviour
             return;
 
         corpse.Reinitialise(position);
+
+        if (MonsterCount > MonsterCap / 2)
+        {
+            corpse.gameObject.layer = LayerMask.NameToLayer("MonstersCosmetic");
+        }
+        else
+        {
+            corpse.gameObject.layer = LayerMask.NameToLayer("Monsters");
+        }
     }
 
     public static void SpawnGiantMonster(Vector3 position)
     {
         var giant = MonsterFactory.Instance.CreateGiantMonster(position);
-        giant.Reinitialise(position);
+        giant.Reinitialise(position, true);
     }
 
     public static void CreateSwarm(Vector3 origin, int size, string text = "")
@@ -234,11 +243,14 @@ public class GameController : MonoBehaviour
 
     private void HandleActorDestroyed(Actor actor, Actor killer)
     {
-        if (actor.Team != killer.Team)
+        if (killer != null)
         {
-            if (actor is Monster || actor is Marine)
+            if (actor.Team != killer.Team)
             {
-                killer.KillCount++;
+                if (actor is Monster || actor is Marine)
+                {
+                    killer.KillCount++;
+                }
             }
         }
 

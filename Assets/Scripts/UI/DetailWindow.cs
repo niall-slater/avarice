@@ -57,10 +57,12 @@ public class DetailWindow : MonoBehaviour
         else if (actor is Marine ma)
         {
             details = $"{ma.KillCount} confirmed kills";
+            details = "";
         }
         else if (actor is Monster mo)
         {
             details = $"{mo.KillCount} kills";
+            details = "";
         }
         else if (actor is Mine mi)
         {
@@ -69,6 +71,7 @@ public class DetailWindow : MonoBehaviour
         else if (actor is APC apc)
         {
             details = $"{apc.KillCount} confirmed kills";
+            details = "";
         }
         DetailsText.text = details;
     }

@@ -11,7 +11,7 @@ public class Marine : MovingUnit
     
     private float _fireTicker;
 
-    private Actor _target;
+    private GameObject _target;
 
     [SerializeField]
     private AudioSource _audio;
@@ -28,9 +28,27 @@ public class Marine : MovingUnit
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (_target != null)
+            return;
+
         if (collision.gameObject.CompareTag("Monster"))
         {
-            _target = collision.gameObject.GetComponent<Actor>();
+            _target = collision.gameObject;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Monster"))
+        {
+            if (collision.gameObject.name == "GiantMonster(Clone)")
+            {
+                Hurt(GameVariables.GIANT_MONSTER_ATTACKPOWER, null);
+            }
+            else
+            {
+                Hurt(GameVariables.DEFAULT_MONSTER_ATTACKPOWER, null);
+            }
         }
     }
 
@@ -40,7 +58,7 @@ public class Marine : MovingUnit
         _fireTicker -= Time.deltaTime;
         if (_fireTicker < 0)
         {
-            if (_target != null && _target.Alive && !Physics2D.Linecast(transform.position, _target.transform.position, LineOfSightMask))
+            if (_target != null && _target.activeSelf && !Physics2D.Linecast(transform.position, _target.transform.position, LineOfSightMask))
             {
                 FireAt(_target);
             }
@@ -52,7 +70,7 @@ public class Marine : MovingUnit
         }
     }
 
-    private void FireAt(Actor target)
+    private void FireAt(GameObject target)
     {
         SpawnBullet((target.transform.position - transform.position).normalized);
     }

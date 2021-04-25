@@ -13,7 +13,7 @@ public class APC : MovingUnit
 
     private float _fireTicker;
 
-    private Actor _target;
+    private GameObject _target;
 
     [SerializeField]
     private AudioSource _audio;
@@ -30,9 +30,12 @@ public class APC : MovingUnit
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (_target != null)
+            return;
+
         if (collision.gameObject.CompareTag("Monster"))
         {
-            _target = collision.gameObject.GetComponent<Actor>();
+            _target = collision.gameObject;
         }
     }
 
@@ -40,8 +43,14 @@ public class APC : MovingUnit
     {
         if (collision.gameObject.CompareTag("Monster"))
         {
-            var monster = collision.gameObject.GetComponent<Monster>();
-            monster.Hurt(RammingDamage * Time.deltaTime, this);
+            if (collision.gameObject.name == "GiantMonster(Clone)")
+            {
+                Hurt(GameVariables.GIANT_MONSTER_ATTACKPOWER, null);
+            }
+            else
+            {
+                Hurt(GameVariables.DEFAULT_MONSTER_ATTACKPOWER, null);
+            }
         }
     }
 
@@ -51,7 +60,7 @@ public class APC : MovingUnit
         _fireTicker -= Time.deltaTime;
         if (_fireTicker < 0)
         {
-            if (_target != null && _target.Alive && !Physics2D.Linecast(transform.position, _target.transform.position, LineOfSightMask))
+            if (_target != null && _target.activeSelf && !Physics2D.Linecast(transform.position, _target.transform.position, LineOfSightMask))
             {
                 FireAt(_target);
             }
@@ -63,7 +72,7 @@ public class APC : MovingUnit
         }
     }
 
-    private void FireAt(Actor target)
+    private void FireAt(GameObject target)
     {
         SpawnBullet((target.transform.position - transform.position).normalized);
     }

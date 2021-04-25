@@ -16,6 +16,28 @@ public abstract class Building : Actor
             _hurtEffectCooldownTicker -= Time.deltaTime;
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Caravan"))
+        {
+            if (!(this is Mine))
+            {
+                Kill(null);
+            }
+        }
+        else if (collision.gameObject.CompareTag("Monster"))
+        {
+            if (collision.gameObject.name == "GiantMonster")
+            {
+                Hurt(GameVariables.GIANT_MONSTER_ATTACKPOWER, null);
+            }
+            else
+            {
+                Hurt(GameVariables.DEFAULT_MONSTER_ATTACKPOWER, null);
+            }
+        }
+    }
+
     public override void Hurt(float amount, Actor perpetrator)
     {
         base.Hurt(amount, perpetrator);

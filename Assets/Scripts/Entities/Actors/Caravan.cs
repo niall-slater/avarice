@@ -49,21 +49,11 @@ public class Caravan : MovingUnit
         PopUpManager.CreatePopup("CARAVAN ARRIVED");
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Building"))
-        {
-            var building = collision.gameObject.GetComponent<Building>();
-            if (building is Mine)
-                return;
-
-            building.Hurt(500f * Time.deltaTime, this);
-        }
         if (collision.gameObject.CompareTag("Monster"))
         {
-            var monster = collision.gameObject.GetComponent<Monster>();
-
-            monster.Hurt(50f * Time.deltaTime, this);
+            Hurt(1f, null);
         }
     }
 

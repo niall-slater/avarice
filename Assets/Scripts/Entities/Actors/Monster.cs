@@ -43,17 +43,21 @@ public class Monster : Actor
     /// <summary>
     /// The actor this creature wants to attack.
     /// </summary>
-    private Actor _target;
+    private GameObject _target;
 
     /// <summary>
     /// The position this actor is trying to move to.
     /// </summary>
     private Vector3 _moveTarget;
 
-    public float AttackPower = 1f;
 
+    //deprecated
+    public float AttackPower = 1f;
     public float AttackCooldown = 1f;
     private float _attackCooldownTicker;
+
+    private float _findTargetInterval = 1f;
+    private float _findTargetTicker;
 
     public float WiggleMagnitude = 3f;
     private Vector3 _wiggle;
@@ -79,13 +83,13 @@ public class Monster : Actor
         }
     }
 
-    public void Reinitialise(Vector3 startPosition)
+    public void Reinitialise(Vector3 startPosition, bool isGiant = false)
     {
         transform.position = startPosition;
         gameObject.SetActive(true);
         KillCount = 0;
 
-        HP = GameVariables.DEFAULT_MONSTER_HP;
+        HP = isGiant ? GameVariables.GIANT_MONSTER_HP : GameVariables.DEFAULT_MONSTER_HP;
 
         var target = Map.GetRandomNonMineBuildingWithinRange(transform.position, AttackRadius);
         if (target == null)
@@ -96,7 +100,7 @@ public class Monster : Actor
         else
         {
             CurrentBehaviour = Behaviour.ATTACK;
-            _target = target;
+            _target = target.gameObject;
         }
 
         ActorName = NameGenerator.GenerateName();
@@ -173,7 +177,7 @@ public class Monster : Actor
         {
             GetRandomWanderTarget();
         }
-
+        
         if (Mathf.RoundToInt(Time.time) % 10 == 0)
         {
             _currentBehaviour = Behaviour.ATTACK;
@@ -187,7 +191,7 @@ public class Monster : Actor
                 enemy = GameObject.FindGameObjectWithTag("Builder");
             }
 
-            _target = enemy.GetComponent<Actor>();
+            _target = enemy;
         }
     }
 
@@ -200,33 +204,34 @@ public class Monster : Actor
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (_target != null)
+            return;
+
         if (collision.gameObject.CompareTag("Building"))
         {
-            _target = collision.gameObject.GetComponent<Building>();
+            _target = collision.gameObject;
             CurrentBehaviour = Behaviour.ATTACK;
         }
-        if (collision.gameObject.CompareTag("Marine"))
+        else if (collision.gameObject.CompareTag("Marine"))
         {
-            _target = collision.gameObject.GetComponent<Marine>();
+            _target = collision.gameObject;
             CurrentBehaviour = Behaviour.ATTACK;
+        }
+        else if (collision.gameObject.CompareTag("Caravan"))
+        {
+            Kill(null);
         }
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (_attackCooldownTicker <= 0)
+        if (collision.gameObject.CompareTag("Bullet"))
         {
-            var actor = collision.gameObject.GetComponent<Actor>();
-            if (actor == null)
-            {
-                return;
-            }
-            if (actor.Team != Team)
-            {
-                actor.Hurt(AttackPower, this);
-                _attackCooldownTicker = AttackCooldown;
-            }
+            Hurt(GameVariables.BULLET_DAMAGE, null);
         }
+
+        var bounceBack = (collision.transform.position - transform.position).normalized;
+        Body.AddForce(bounceBack, ForceMode2D.Impulse);
     }
 
     protected override void Kill(Actor killer)
