@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
     public static float Cash;
     public static float MaxDepthReached;
 
-    public float CaravanInterval = 300f;
+    public float CaravanInterval = 5f;
     public static float CaravanTimer;
 
     public static int MonsterCap = 500;

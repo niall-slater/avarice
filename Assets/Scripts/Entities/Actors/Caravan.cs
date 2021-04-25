@@ -43,6 +43,18 @@ public class Caravan : MovingUnit
         }
     }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Building"))
+        {
+            var building = collision.gameObject.GetComponent<Building>();
+            if (building is Mine)
+                return;
+
+            building.Hurt(50f * Time.deltaTime);
+        }
+    }
+
     protected void Update()
     {
         switch (CurrentState)
