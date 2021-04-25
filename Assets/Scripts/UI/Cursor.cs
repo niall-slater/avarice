@@ -43,6 +43,7 @@ public class Cursor : MonoBehaviour
         if (SelectedActors.Contains(actor))
         {
             SelectedActors.Remove(actor);
+            UIEventHub.Instance.RaiseOnSelectionChanged(SelectedActors);
 
             if (CurrentState == CursorState.BLUEPRINT)
             {

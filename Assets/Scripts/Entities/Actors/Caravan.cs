@@ -53,6 +53,12 @@ public class Caravan : MovingUnit
 
             building.Hurt(500f * Time.deltaTime);
         }
+        if (collision.gameObject.CompareTag("Monster"))
+        {
+            var monster = collision.gameObject.GetComponent<Monster>();
+
+            monster.Hurt(50f * Time.deltaTime);
+        }
     }
 
     protected void Update()

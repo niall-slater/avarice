@@ -8,10 +8,15 @@ public class DecalManager : MonoBehaviour
 {
     public GameObject DecalPrefab;
 
+    public GameObject DeathBurstEffect;
+    public GameObject DeathBurstEffect_Monster;
+
     public int DecalCap;
 
     public Sprite BloodMarine;
     public Sprite BloodMonster;
+    public Sprite BloodBuilder;
+    public Sprite Rubble;
 
     private int _decalCount;
 
@@ -29,6 +34,15 @@ public class DecalManager : MonoBehaviour
     {
         var pos = actor.transform.position;
 
+        if (actor.Team == GameVariables.TEAM.PLAYER)
+        {
+            Instantiate(DeathBurstEffect, pos, Quaternion.identity, null);
+        }
+        else
+        {
+            Instantiate(DeathBurstEffect_Monster, pos, Quaternion.identity, null);
+        }
+
         if (actor is Monster)
         {
             SpawnDecal(pos, BloodMonster);
@@ -37,6 +51,16 @@ public class DecalManager : MonoBehaviour
         if (actor is Marine)
         {
             SpawnDecal(pos, BloodMarine);
+            return;
+        }
+        if (actor is Builder)
+        {
+            SpawnDecal(pos, BloodBuilder);
+            return;
+        }
+        if (actor is Building)
+        {
+            SpawnDecal(pos, Rubble);
             return;
         }
     }

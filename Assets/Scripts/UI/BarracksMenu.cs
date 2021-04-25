@@ -17,4 +17,16 @@ public class BarracksMenu : MonoBehaviour
         GameController.SpawnMarine(SelectedBarracks.transform.position);
         GameController.Cash -= SelectedBarracks.MarineCost;
     }
+
+    public void TrainBuilder()
+    {
+        if (GameController.Cash < SelectedBarracks.BuilderCost)
+        {
+            Debug.Log("Can't afford a builder");
+            return;
+        }
+
+        GameController.SpawnBuilder(SelectedBarracks.transform.position);
+        GameController.Cash -= SelectedBarracks.BuilderCost;
+    }
 }

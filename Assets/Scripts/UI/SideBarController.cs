@@ -15,6 +15,11 @@ public class SideBarController : MonoBehaviour
         CloseMenus();
     }
 
+    private void OnDestroy()
+    {
+        UIEventHub.Instance.OnSelectionChanged -= HandleSelectionChange;
+    }
+
     private void HandleSelectionChange(List<Actor> selected)
     {
         if (selected.Count == 1)

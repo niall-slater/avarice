@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Barracks : Building
 {
+    public float BuilderCost = 120f;
     public float MarineCost = 20f;
 
     // Start is called before the first frame update
@@ -23,12 +24,6 @@ public class Barracks : Building
     protected override void Update()
     {
         base.Update();
-    }
-
-
-    private void SpawnMarine()
-    {
-        //GameController.SpawnMonster(transform.position);
     }
 
     public override void OnSelect()

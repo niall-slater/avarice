@@ -33,6 +33,8 @@ public class GameController : MonoBehaviour
     public GameObject WinScreen;
     public GameObject LoseScreen;
 
+    public List<Actor> StartingUnits;
+
     public enum VictoryState
     {
         IN_PROGRESS,
@@ -58,6 +60,8 @@ public class GameController : MonoBehaviour
         ActorEventHub.Instance.OnActorDestroyed += HandleActorDestroyed;
 
         ScoreEventHub.Instance.OnBioBombDetonation += Win;
+
+        PlayerUnits.AddRange(StartingUnits);
 
         FillMonsterPool();
         FillBulletPool();
@@ -220,5 +224,6 @@ public class GameController : MonoBehaviour
         CurrentState = VictoryState.LOSE;
         Debug.Log("YOU LOST:\n" + reason);
         LoseScreen.SetActive(true);
+        LoseScreen.GetComponent<LoseScreen>().Reason.text = reason;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,14 +14,14 @@ public class WinScreen : MonoBehaviour
     public void DrillDeeper()
     {
         var nextIndex = SceneManager.GetActiveScene().buildIndex + 1;
-        if (SceneManager.GetSceneByBuildIndex(nextIndex) != null)
+        try
         {
             SceneManager.LoadScene(nextIndex);
             UIEventHub.Instance.RaiseOnSceneReload();
         }
-        else
+        catch (Exception e)
         {
-            Debug.Log("No more scenes");
+            Debug.LogError(e.Message);
             SceneManager.LoadScene(0);
         }
     }
