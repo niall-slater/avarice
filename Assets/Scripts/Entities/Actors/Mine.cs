@@ -9,6 +9,7 @@ public class Mine : Building
     private float SpawnCreatureIntervalVariance = 1f;
     private float SpawnCreatureInterval = 5f;
     private float SpawnCreatureChance = 0.5f;
+    private float SpawnGiantChance = 0.02f;
     private float _spawnCreatureTicker;
 
     public float OreValue;
@@ -135,7 +136,14 @@ public class Mine : Building
         {
             if (UnityEngine.Random.value < SpawnCreatureChance)
             {
-                SpawnCreature();
+                if (MiningDepth > GameVariables.DEPTH_LEVEL_3 && UnityEngine.Random.value < SpawnGiantChance)
+                {
+                    SpawnGiantCreature();
+                }
+                else
+                {
+                    SpawnCreature();
+                }
             }
             ResetTicker();
         }
@@ -145,6 +153,12 @@ public class Mine : Building
     {
         var offset = (Vector3.one * _minSpawnRadius) + UnityEngine.Random.insideUnitSphere * _spawnRadiusThickness;
         GameController.SpawnMonster(transform.position + offset);
+    }
+
+    private void SpawnGiantCreature()
+    {
+        var offset = (Vector3.one * _minSpawnRadius) + UnityEngine.Random.insideUnitSphere * _spawnRadiusThickness;
+        GameController.SpawnGiantMonster(transform.position + offset);
     }
 
     public override void OnSelect()

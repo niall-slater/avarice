@@ -28,4 +28,10 @@ class MonsterFactory
         var monster = GameObject.Instantiate(Resources.Load<GameObject>(PrefabPaths.MonsterPrefab), position, Quaternion.identity, null).GetComponent<Monster>();
         return monster;
     }
+
+    public Monster CreateGiantMonster(Vector3 position)
+    {
+        var monster = GameObject.Instantiate(Resources.Load<GameObject>(PrefabPaths.GiantMonsterPrefab), position, Quaternion.identity, null).GetComponent<Monster>();
+        return monster;
+    }
 }

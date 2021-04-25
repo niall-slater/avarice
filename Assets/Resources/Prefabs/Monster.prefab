@@ -56,7 +56,7 @@ MonoBehaviour:
   WanderRadius: 15
   MoveForce: 5
   AttackPower: 1
-  AttackCooldown: 1
+  AttackCooldown: 0.5
   WiggleMagnitude: 3
   WiggleInterval: 1
 --- !u!50 &3564192338044413714
@@ -202,7 +202,8 @@ SpriteRenderer:
   m_SortingLayerID: -1662846347
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4900dea076367644f8c3444086c33cc7, type: 3}
+  m_Sprite: {fileID: 4644523113532460279, guid: 4900dea076367644f8c3444086c33cc7,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -210,7 +211,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &1668441116

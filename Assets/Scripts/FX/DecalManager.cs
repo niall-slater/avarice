@@ -45,7 +45,7 @@ public class DecalManager : MonoBehaviour
 
         if (actor is Monster)
         {
-            SpawnDecal(pos, BloodMonster);
+            SpawnDecal(pos, BloodMonster, actor.transform.localScale.x);
             return;
         }
         if (actor is Marine)
@@ -76,7 +76,7 @@ public class DecalManager : MonoBehaviour
         }
     }
 
-    private void SpawnDecal(Vector3 position, Sprite sprite)
+    private void SpawnDecal(Vector3 position, Sprite sprite, float scale = 1f)
     {
         var decal = GetFreeDecalFromPool();
 
@@ -86,6 +86,7 @@ public class DecalManager : MonoBehaviour
         }
 
         decal.Reinitialise(position, sprite, this);
+        decal.transform.localScale = Vector3.one * scale;
 
         RefreshDecalCount();
     }

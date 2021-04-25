@@ -116,6 +116,12 @@ public class GameController : MonoBehaviour
         corpse.Reinitialise(position);
     }
 
+    public static void SpawnGiantMonster(Vector3 position)
+    {
+        var giant = MonsterFactory.Instance.CreateGiantMonster(position);
+        giant.Reinitialise(position);
+    }
+
     public static bool SpawnBullet(Vector3 position, Vector3 direction)
     {
         if (BulletCount >= BulletCap)

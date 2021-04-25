@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 public static class GameVariables
 {
     public const float DEFAULT_MONSTER_HP = 5F;
+    public const float GIANT_MONSTER_HP = 125F;
 
     public const float DEPTH_LEVEL_0 = 150f;
     public const float DEPTH_LEVEL_1 = 750f;

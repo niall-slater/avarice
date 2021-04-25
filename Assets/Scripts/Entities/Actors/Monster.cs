@@ -204,6 +204,7 @@ public class Monster : Actor
             if (actor.Team != Team)
             {
                 actor.Hurt(AttackPower);
+                Debug.Log("hurt " + actor.name + " for " + AttackPower + " dmg");
                 _attackCooldownTicker = AttackCooldown;
             }
         }

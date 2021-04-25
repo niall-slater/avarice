@@ -155,8 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Team: 0
   HP: 100
-  _clipDestruction: {fileID: 8300000, guid: e0c710e89eac1884f9ffbab6edc76339, type: 3}
-  Cost: 50
+  Cost: 10
 --- !u!82 &-8764369199072607459
 AudioSource:
   m_ObjectHideFlags: 0
