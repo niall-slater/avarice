@@ -7,6 +7,7 @@ using UnityEngine;
 public class BioBomb : Building
 {
     private float _fuseTicker;
+    public float SecondsLeft => _fuseTicker;
 
     public GameObject ExplosionEffectPrefab;
 
@@ -17,6 +18,7 @@ public class BioBomb : Building
         _fuseTicker = GameVariables.BIO_BOMB_FUSE;
 
         PopUpManager.CreatePopup($"BIO BOMB ARMED:\n{Mathf.RoundToInt(_fuseTicker)} SECONDS");
+        ScoreEventHub.Instance.RaiseOnBioBombBuilt(this);
     }
 
     // Update is called once per frame

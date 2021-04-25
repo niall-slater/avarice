@@ -40,7 +40,6 @@ public class Marine : MovingUnit
         {
             if (_target != null && _target.Alive && !Physics2D.Linecast(transform.position, _target.transform.position, LineOfSightMask))
             {
-                Debug.Log(_target);
                 FireAt(_target);
             }
             else

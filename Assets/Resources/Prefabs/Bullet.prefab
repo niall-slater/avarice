@@ -168,6 +168,7 @@ MonoBehaviour:
   Alive: 0
   Speed: 7
   Damage: 1
+  trail: {fileID: 7919807681253881866}
 --- !u!96 &7919807681253881866
 TrailRenderer:
   serializedVersion: 2

@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    public float StartingCash;
+
     public static float Cash;
     public static float MaxDepthReached;
 
@@ -48,7 +50,7 @@ public class GameController : MonoBehaviour
     {
         PlayerUnits = new List<Actor>();
         CurrentState = VictoryState.IN_PROGRESS;
-        Cash = 1500;
+        Cash = StartingCash;
         MaxDepthReached = 0f;
         CaravanTimer = CaravanInterval;
         MonsterPool = new List<Monster>();

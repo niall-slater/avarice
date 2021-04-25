@@ -40,8 +40,14 @@ public class ScoreEventHub
     public void RaiseOnCashAmountUpdated(float cashChange) { OnCashAmountUpdated?.Invoke(cashChange); }
 
     /// <summary>
-    /// The cash amount is updated.
+    /// The bio bomb detonates.
     /// </summary>
     public delegate void BioBombDetonation(); public event BioBombDetonation OnBioBombDetonation;
     public void RaiseOnBioBombDetonation() { OnBioBombDetonation?.Invoke(); }
+
+    /// <summary>
+    /// The bio bomb is built.
+    /// </summary>
+    public delegate void BioBombBuilt(BioBomb bomb); public event BioBombBuilt OnBioBombBuilt;
+    public void RaiseOnBioBombBuilt(BioBomb bomb) { OnBioBombBuilt?.Invoke(bomb); }
 }

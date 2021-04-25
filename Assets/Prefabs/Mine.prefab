@@ -236,7 +236,7 @@ MonoBehaviour:
   OreValue: 0
   OreGrowthRate: 5
   OreCap: 2500
-  DrillSpeed: 6
+  DrillSpeed: 6666
   MiningDepth: 0
   SpawningDisabled: 0
   OreReadout: {fileID: 4485025320054181219}
