@@ -64,6 +64,21 @@ public class Map : MonoBehaviour
         return viableBuildings[UnityEngine.Random.Range(0, viableBuildings.Count())];
     }
 
+    public static Building GetRandomNonMineBuildingWithinRange(Vector3 position, float range)
+    {
+        if (Buildings.Count == 0)
+            return null;
+
+        var dist = range;
+        var result = Buildings[0];
+
+        var viableBuildings = Buildings.Where(x => Vector3.Distance(position, x.transform.position) < range && !(x is Mine)) as List<Building>;
+        if (viableBuildings == null)
+            return null;
+
+        return viableBuildings[UnityEngine.Random.Range(0, viableBuildings.Count())];
+    }
+
     public static bool ValidateBuildingPlacement(Building selectedBlueprint, Vector3 position)
     {
         var result = false;

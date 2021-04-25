@@ -49,13 +49,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Team: 1
+  HP: 5
   Body: {fileID: 3564192338044413714}
+  spriteRenderer: {fileID: 6974481993651400213}
   AttackRadius: 5
   WanderRadius: 15
   MoveForce: 5
-  Alive: 0
   AttackPower: 1
   AttackCooldown: 1
+  WiggleMagnitude: 3
+  WiggleInterval: 1
 --- !u!50 &3564192338044413714
 Rigidbody2D:
   serializedVersion: 4

@@ -15,6 +15,9 @@ public class Mine : Building
     public float OreGrowthRate;
     public float OreCap;
 
+    private float _minSpawnRadius = 1f;
+    private float _spawnRadiusThickness = 1f;
+
     public float DrillSpeed = 18f;
     public float MiningDepth;
 
@@ -116,7 +119,8 @@ public class Mine : Building
 
     private void SpawnCreature()
     {
-        GameController.SpawnMonster(transform.position);
+        var offset = (Vector3.one * _minSpawnRadius) + UnityEngine.Random.insideUnitSphere * _spawnRadiusThickness;
+        GameController.SpawnMonster(transform.position + offset);
     }
 
     public override void OnSelect()

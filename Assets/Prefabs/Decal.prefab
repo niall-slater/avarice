@@ -95,5 +95,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 7372068654567220519}
-  lifetime: 8
+  lifetime: 15
   Alive: 0

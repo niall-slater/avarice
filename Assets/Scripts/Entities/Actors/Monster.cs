@@ -18,7 +18,11 @@ public class Monster : Actor
         set { SetBehaviour(value);  }
     }
 
+    private float _crawlingTicker = .5f;
+
     public Rigidbody2D Body;
+
+    public SpriteRenderer spriteRenderer;
 
     /// <summary>
     /// How close to a building before this creature attacks it?
@@ -81,10 +85,11 @@ public class Monster : Actor
 
         HP = GameVariables.DEFAULT_MONSTER_HP;
 
-        var target = Map.GetRandomBuildingWithinRange(transform.position, AttackRadius);
+        var target = Map.GetRandomNonMineBuildingWithinRange(transform.position, AttackRadius);
         if (target == null)
         {
             CurrentBehaviour = Behaviour.WANDER;
+            _moveTarget = GetRandomWanderTarget();
         }
         else
         {
@@ -98,6 +103,18 @@ public class Monster : Actor
 
     void Update()
     {
+        if (_crawlingTicker >= 0f)
+        {
+            _crawlingTicker -= Time.deltaTime;
+            spriteRenderer.sortingOrder = -500;
+            return;
+        }
+        else
+        {
+            _crawlingTicker = 0;
+            spriteRenderer.sortingOrder = 0;
+        }
+
         _wiggleTicker -= Time.deltaTime;
 
         if (_wiggleTicker < 0)
@@ -124,6 +141,10 @@ public class Monster : Actor
 
     private void FixedUpdate()
     {
+        if (_crawlingTicker > 0f)
+        {
+            return;
+        }
         var moveForce = (_moveTarget - transform.position).normalized * MoveForce;
 
         var moveForce2D = new Vector3(moveForce.x, moveForce.y);
@@ -143,7 +164,7 @@ public class Monster : Actor
 
     private void UpdateWander()
     {
-        if (Vector3.Distance(transform.position, _moveTarget) < .1f)
+        if (Vector3.Distance(transform.position, _moveTarget) < .5f)
         {
             GetRandomWanderTarget();
         }

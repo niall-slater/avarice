@@ -1314,12 +1314,12 @@ PrefabInstance:
     - target: {fileID: 8744295540162703822, guid: 17b75a96dbf480a4d8b621a2a5feabb0,
         type: 3}
       propertyPath: DrillSpeed
-      value: 600
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8744295540162703822, guid: 17b75a96dbf480a4d8b621a2a5feabb0,
         type: 3}
       propertyPath: MiningDepth
-      value: 100
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17b75a96dbf480a4d8b621a2a5feabb0, type: 3}
@@ -2730,12 +2730,12 @@ PrefabInstance:
     - target: {fileID: 8744295540162703822, guid: 17b75a96dbf480a4d8b621a2a5feabb0,
         type: 3}
       propertyPath: DrillSpeed
-      value: 600
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8744295540162703822, guid: 17b75a96dbf480a4d8b621a2a5feabb0,
         type: 3}
       propertyPath: MiningDepth
-      value: 100
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17b75a96dbf480a4d8b621a2a5feabb0, type: 3}
