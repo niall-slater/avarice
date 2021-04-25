@@ -51,7 +51,7 @@ public class Caravan : MovingUnit
             if (building is Mine)
                 return;
 
-            building.Hurt(50f * Time.deltaTime);
+            building.Hurt(500f * Time.deltaTime);
         }
     }
 
