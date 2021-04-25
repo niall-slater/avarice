@@ -48,6 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Team: 0
+  ActorName: Caravan
+  KillCount: 0
   HP: 25
   MoveSpeed: 1
   SelectionHalo: {fileID: 0}

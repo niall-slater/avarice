@@ -130,10 +130,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Team: 0
+  ActorName: Barracks
+  KillCount: 0
   HP: 5
-  _clipDestruction: {fileID: 8300000, guid: e0c710e89eac1884f9ffbab6edc76339, type: 3}
   Cost: 90
-  MarineCost: 50
 --- !u!61 &8102126924591571068
 BoxCollider2D:
   m_ObjectHideFlags: 0

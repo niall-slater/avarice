@@ -153,6 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Team: 0
+  ActorName: Gate
+  KillCount: 0
   HP: 100
   Cost: 50
   Open: 0

@@ -49,11 +49,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Team: 1
+  ActorName: Monster
+  KillCount: 0
   HP: 5
   Body: {fileID: 3564192338044413714}
   spriteRenderer: {fileID: 6974481993651400213}
   AttackRadius: 5
-  WanderRadius: 15
+  WanderRadius: 2
   MoveForce: 5
   AttackPower: 1
   AttackCooldown: 0.5

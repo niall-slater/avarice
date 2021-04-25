@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 3125861101903130247}
   m_Layer: 10
   m_Name: Builder
-  m_TagString: Untagged
+  m_TagString: Builder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,6 +131,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Team: 0
+  ActorName: Builder
+  KillCount: 0
   HP: 5
   MoveSpeed: 1
   SelectionHalo: {fileID: 8553244364606951576}

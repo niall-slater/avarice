@@ -231,6 +231,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Team: 0
+  ActorName: Mine
+  KillCount: 0
   HP: 500
   Cost: 200
   OreValue: 0

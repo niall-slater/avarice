@@ -173,6 +173,22 @@ public class Monster : Actor
         {
             GetRandomWanderTarget();
         }
+
+        if (Mathf.RoundToInt(Time.time) % 10 == 0)
+        {
+            _currentBehaviour = Behaviour.ATTACK;
+            var enemy = GameObject.FindGameObjectWithTag("Marine");
+            if (enemy == null)
+            {
+                enemy = GameObject.FindGameObjectWithTag("Building");
+            }
+            if (enemy == null)
+            {
+                enemy = GameObject.FindGameObjectWithTag("Builder");
+            }
+
+            _target = enemy.GetComponent<Actor>();
+        }
     }
 
     private Vector3 GetRandomWanderTarget()

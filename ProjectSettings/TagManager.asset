@@ -11,6 +11,7 @@ TagManager:
   - Ingress
   - Egress
   - WorldCanvas
+  - Builder
   layers:
   - Default
   - TransparentFX

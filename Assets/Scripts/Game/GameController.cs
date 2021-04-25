@@ -246,6 +246,8 @@ public class GameController : MonoBehaviour
         {
             PlayerUnits.Remove(actor);
 
+            PopUpManager.CreatePopup($"{actor.ActorName}\nhas fallen", actor.transform.position, 2f);
+
             if (CurrentState != VictoryState.IN_PROGRESS)
             {
                 return;

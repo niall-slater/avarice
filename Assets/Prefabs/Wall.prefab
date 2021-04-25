@@ -154,6 +154,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Team: 0
+  ActorName: Wall
+  KillCount: 0
   HP: 100
   Cost: 10
 --- !u!82 &-8764369199072607459

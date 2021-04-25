@@ -130,6 +130,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Team: 0
+  ActorName: Bio Bomb
+  KillCount: 0
   HP: 5
   Cost: 2500
   ExplosionEffectPrefab: {fileID: 4355959393631957318, guid: beae9241fbe9cf642a3e317227256556,
