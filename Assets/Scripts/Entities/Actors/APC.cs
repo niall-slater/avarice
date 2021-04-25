@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Marine : MovingUnit
+public class APC : MovingUnit
 {
     public float FireInterval;
 
     public LayerMask LineOfSightMask;
-    
+
+    public float RammingDamage;
+
     private float _fireTicker;
 
     private Actor _target;
@@ -22,7 +24,7 @@ public class Marine : MovingUnit
     protected override void Start()
     {
         base.Start();
-        ActorName = "PVT. " + NameGenerator.GenerateName();
+        ActorName = "CMDR. " + NameGenerator.GenerateName();
         _fireTicker = FireInterval + Random.Range(0, FireInterval);
     }
 
@@ -31,6 +33,15 @@ public class Marine : MovingUnit
         if (collision.gameObject.CompareTag("Monster"))
         {
             _target = collision.gameObject.GetComponent<Actor>();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Monster"))
+        {
+            var monster = collision.gameObject.GetComponent<Monster>();
+            monster.Hurt(RammingDamage * Time.deltaTime, this);
         }
     }
 
@@ -61,7 +72,7 @@ public class Marine : MovingUnit
     {
         if (GameController.SpawnBullet(transform.position, direction, this))
         {
-            _audio.pitch = UnityEngine.Random.Range(0.5f, .8f);
+            _audio.pitch = UnityEngine.Random.Range(0.25f, .4f);
             _audio.PlayOneShot(_clipShoot);
         }
     }

@@ -6,8 +6,9 @@ using UnityEngine;
 
 public class Barracks : Building
 {
-    public float BuilderCost = 120f;
-    public float MarineCost = 20f;
+    public static float BuilderCost = 120f;
+    public static float MarineCost = 20f;
+    public static float APCCost = 300f;
 
     // Start is called before the first frame update
     void Start()

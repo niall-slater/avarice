@@ -197,6 +197,12 @@ public class GameController : MonoBehaviour
         PlayerUnits.Add(builder);
     }
 
+    public static void SpawnAPC(Vector3 position)
+    {
+        var APC = Instantiate(Resources.Load<GameObject>(PrefabPaths.APCPrefab), position, Quaternion.identity, null).GetComponent<Actor>();
+        PlayerUnits.Add(APC);
+    }
+
     public static void RefreshMonsterCount()
     {
         MonsterCount = MonsterPool.Count(x => x.Alive);

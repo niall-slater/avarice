@@ -32,7 +32,7 @@ public class DetailWindow : MonoBehaviour
 
     private void UpdateInfo(Actor actor)
     {
-        if (actor is Marine || actor is Monster || actor is Caravan)
+        if (actor is Marine || actor is Monster || actor is Caravan || actor is APC)
             NameText.text = actor.ActorName;
         else
             NameText.text = string.Empty;
@@ -65,6 +65,10 @@ public class DetailWindow : MonoBehaviour
         else if (actor is Mine mi)
         {
             details = $"drill is {mi.MiningDepth}m deep";
+        }
+        else if (actor is APC apc)
+        {
+            details = $"{apc.KillCount} confirmed kills";
         }
         DetailsText.text = details;
     }
