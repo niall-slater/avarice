@@ -8567,7 +8567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4453fc9d318418446b8eca295ad778ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartingCash: 1300
+  StartingCash: 13000
   CaravanInterval: 150
   CreaturesRoot: {fileID: 1173292602}
   WinScreen: {fileID: 2093350664}
