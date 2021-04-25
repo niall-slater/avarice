@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Marine : MovingUnit
 {
-    public float FireInterval = .2f;
+    public float FireInterval;
 
     public LayerMask LineOfSightMask;
     
@@ -57,8 +57,10 @@ public class Marine : MovingUnit
 
     public void SpawnBullet(Vector3 direction)
     {
-        _audio.pitch = UnityEngine.Random.Range(0.5f, .8f);
-        _audio.PlayOneShot(_clipShoot);
-        GameController.SpawnBullet(transform.position, direction);
+        if (GameController.SpawnBullet(transform.position, direction))
+        {
+            _audio.pitch = UnityEngine.Random.Range(0.5f, .8f);
+            _audio.PlayOneShot(_clipShoot);
+        }
     }
 }

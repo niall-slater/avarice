@@ -54,7 +54,7 @@ MonoBehaviour:
   HP: 10
   MoveSpeed: 1
   SelectionHalo: {fileID: 6858170742965696579}
-  FireInterval: 0.05
+  FireInterval: 0.1
   LineOfSightMask:
     serializedVersion: 2
     m_Bits: 2048

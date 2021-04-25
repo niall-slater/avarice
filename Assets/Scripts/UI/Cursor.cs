@@ -211,7 +211,6 @@ public class Cursor : MonoBehaviour
         var hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), Vector2.zero, 1f, SelectionMask, 0f);
         Physics2D.queriesHitTriggers = cachedSetting;
 
-        Debug.Log(EventSystem.current.IsPointerOverGameObject());
         // We hit nothing - most likely blocked by the UI
         if (!hit || EventSystem.current.IsPointerOverGameObject())
         {

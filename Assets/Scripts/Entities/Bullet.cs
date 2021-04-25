@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.back);
 
         _movement = direction;
-        GameController.BulletCount++;
+        GameController.RefreshBulletCount();
         Lifetime = 5f;
     }
 
@@ -55,8 +55,8 @@ public class Bullet : MonoBehaviour
 
     public void Kill()
     {
-        gameObject.SetActive(false);
         Alive = false;
-        GameController.BulletCount--;
+        GameController.RefreshBulletCount();
+        gameObject.SetActive(false);
     }
 }

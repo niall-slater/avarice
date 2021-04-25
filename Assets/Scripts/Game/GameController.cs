@@ -91,17 +91,19 @@ public class GameController : MonoBehaviour
         corpse.Reinitialise(position);
     }
 
-    public static void SpawnBullet(Vector3 position, Vector3 direction)
+    public static bool SpawnBullet(Vector3 position, Vector3 direction)
     {
         if (BulletCount >= BulletCap)
-            return;
+            return false;
 
         var corpse = GetInactiveBulletFromPool();
 
         if (corpse == null)
-            return;
+            return false;
 
         corpse.Reinitialise(position, direction);
+
+        return true;
     }
 
     public static void SpawnMarine(Vector3 position)
@@ -112,6 +114,11 @@ public class GameController : MonoBehaviour
     public static void RefreshMonsterCount()
     {
         MonsterCount = MonsterPool.Count(x => x.Alive);
+    }
+
+    public static void RefreshBulletCount()
+    {
+        BulletCount = BulletPool.Count(x => x.Alive);
     }
 
     private static Monster GetInactiveMonsterFromPool()
