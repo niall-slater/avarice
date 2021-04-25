@@ -19,6 +19,8 @@ public class Caravan : MovingUnit
 
     public Rigidbody2D Body;
 
+    public float MoveForce;
+
     public enum JourneyState
     {
         MAKING_ROUNDS,
@@ -59,7 +61,7 @@ public class Caravan : MovingUnit
             return;
         }
 
-        var bounceForce = Body.mass * 2f;
+        var bounceForce = Body.mass;
         var bounceBack = -(collision.transform.position - transform.position).normalized * bounceForce;
         Body.AddForce(bounceBack, ForceMode2D.Impulse);
     }
@@ -110,6 +112,18 @@ public class Caravan : MovingUnit
                     }
                     break;
                 }
+        }
+    }
+
+    protected override void FixedUpdate()
+    {
+        if (Vector3.Distance(transform.position, _moveTarget) > 0.5f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, _moveTarget, MoveSpeed * Time.deltaTime);
+            var moveForce = (_moveTarget - transform.position).normalized * MoveForce;
+
+            var moveForce2D = new Vector3(moveForce.x, moveForce.y);
+            Body.AddForce(moveForce2D, ForceMode2D.Force);
         }
     }
 

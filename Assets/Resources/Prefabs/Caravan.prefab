@@ -57,6 +57,7 @@ MonoBehaviour:
   CollectionRate: 500
   CollectionRange: 0.5
   Body: {fileID: 2430141921136499582}
+  MoveForce: 0.5
   CurrentState: 0
 --- !u!58 &2430141921136499577
 CircleCollider2D:
@@ -87,7 +88,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 4
-  m_LinearDrag: 0
+  m_LinearDrag: 0.1
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
