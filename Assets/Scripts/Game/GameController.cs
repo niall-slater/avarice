@@ -18,6 +18,8 @@ public class GameController : MonoBehaviour
     public static List<Monster> MonsterPool;
     public static List<Bullet> BulletPool;
 
+    public static List<Actor> PlayerUnits;
+
     private static int _monsterCount => MonsterPool.Count(x => x.Alive);
 
     public static int MonsterCount;
@@ -39,10 +41,11 @@ public class GameController : MonoBehaviour
         ActorEventHub.Instance.OnMonsterSpawned += HandleMonsterSpawn;
         ActorEventHub.Instance.OnMonsterKilled += HandleMonsterDeath;
 
+        ActorEventHub.Instance.OnActorDestroyed += HandleActorDestroyed;
+
         FillMonsterPool();
         FillBulletPool();
     }
-
 
     void Update()
     {
@@ -108,7 +111,14 @@ public class GameController : MonoBehaviour
 
     public static void SpawnMarine(Vector3 position)
     {
-        var marine = Instantiate(Resources.Load<GameObject>(PrefabPaths.MarinePrefab), position, Quaternion.identity, null);
+        var marine = Instantiate(Resources.Load<GameObject>(PrefabPaths.MarinePrefab), position, Quaternion.identity, null).GetComponent<Actor>();
+        PlayerUnits.Add(marine);
+    }
+
+    public static void SpawnBuilder(Vector3 position)
+    {
+        var builder = Instantiate(Resources.Load<GameObject>(PrefabPaths.BuilderPrefab), position, Quaternion.identity, null).GetComponent<Actor>();
+        PlayerUnits.Add(builder);
     }
 
     public static void RefreshMonsterCount()
@@ -140,9 +150,50 @@ public class GameController : MonoBehaviour
     {
     }
 
+    private void HandleActorDestroyed(Actor actor)
+    {
+        if (actor.Team == GameVariables.TEAM.PLAYER)
+        {
+            PlayerUnits.Remove(actor);
+
+            //You can still win if you have a builder, a barracks or a biobomb
+
+            if (PlayerUnits.Count == 0)
+            {
+                if (Map.Buildings.Count == 0)
+                {
+                    Lose("No units or buildings left");
+                    return;
+                }
+            }
+
+            if (PlayerUnits.Find(x => x is Builder) == null)
+            {
+                if (Map.Buildings.Find(x => x is Barracks) == null)
+                {
+                    if (Map.Buildings.Find(x => x is BioBomb) == null)
+                    {
+                        Lose("No builder, barracks or biobomb. Situation hopeless");
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
     private void SpawnCaravan()
     {
         Debug.Log("Spawning caravan");
         var caravan = Instantiate(Resources.Load<GameObject>(PrefabPaths.CaravanPrefab), Map.GetIngress(), Quaternion.identity, null);
+    }
+
+    public static void Win()
+    {
+        Debug.Log("YOU WON!");
+    }
+
+    public static void Lose(string reason)
+    {
+        Debug.Log("YOU LOST:\n" + reason);
     }
 }
