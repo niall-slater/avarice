@@ -37,6 +37,11 @@ public class MusicController : MonoBehaviour
         }
     }
 
+    public void SetMusicVolume(float value)
+    {
+        Music.volume = value;
+    }
+
     private void ChangeMusicCalm()
     {
         Music.clip = Music_Calm;

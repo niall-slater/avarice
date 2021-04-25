@@ -17,9 +17,6 @@ public class GameController : MonoBehaviour
     public float SwarmInterval;
     public static float _swarmTicker;
 
-    public static int MonsterCap = 600;
-    public static int BulletCap = 600;
-
     public static List<Monster> MonsterPool;
     public static List<Bullet> BulletPool;
 
@@ -117,7 +114,7 @@ public class GameController : MonoBehaviour
 
     private void FillMonsterPool()
     {
-        for (var i = 0; i < MonsterCap; i++)
+        for (var i = 0; i < GameVariables.MONSTER_CAP; i++)
         {
             var monster = MonsterFactory.Instance.CreateMonster(Vector3.zero);
             monster.HP = 0;
@@ -129,7 +126,7 @@ public class GameController : MonoBehaviour
 
     private void FillBulletPool()
     {
-        for (var i = 0; i < BulletCap; i++)
+        for (var i = 0; i < GameVariables.BULLET_CAP; i++)
         {
             var bullet = BulletFactory.Instance.CreateBullet(Vector3.zero, Vector3.zero);
             bullet.Alive = false;
@@ -140,7 +137,7 @@ public class GameController : MonoBehaviour
 
     public static void SpawnMonster(Vector3 position)
     {
-        if (MonsterCount >= MonsterCap)
+        if (MonsterCount >= GameVariables.MONSTER_CAP)
             return;
 
         var corpse = GetInactiveMonsterFromPool();
@@ -150,7 +147,7 @@ public class GameController : MonoBehaviour
 
         corpse.Reinitialise(position);
 
-        if (MonsterCount > MonsterCap / 2)
+        if (MonsterCount > GameVariables.MONSTER_CAP / 2)
         {
             corpse.gameObject.layer = LayerMask.NameToLayer("MonstersCosmetic");
         }
@@ -181,7 +178,7 @@ public class GameController : MonoBehaviour
 
     public static bool SpawnBullet(Vector3 position, Vector3 direction, Actor shooter)
     {
-        if (BulletCount >= BulletCap)
+        if (BulletCount >= GameVariables.BULLET_CAP)
             return false;
 
         var corpse = GetInactiveBulletFromPool();
