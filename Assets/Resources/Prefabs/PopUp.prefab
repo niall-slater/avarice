@@ -116,10 +116,10 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'caravan
 
-    arraived'
+    arrived'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a0d22f402c69b264f8b5ba694519c9af, type: 2}
-  m_sharedMaterial: {fileID: 6992459539960245801, guid: a0d22f402c69b264f8b5ba694519c9af,
+  m_fontAsset: {fileID: 11400000, guid: 08506b29d958a7d4ba9cbdc07e78cfe0, type: 2}
+  m_sharedMaterial: {fileID: 4632458082829092511, guid: 08506b29d958a7d4ba9cbdc07e78cfe0,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

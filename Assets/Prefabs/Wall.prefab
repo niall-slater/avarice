@@ -156,7 +156,7 @@ MonoBehaviour:
   Team: 0
   ActorName: Wall
   KillCount: 0
-  HP: 100
+  HP: 25
   Cost: 10
 --- !u!82 &-8764369199072607459
 AudioSource:

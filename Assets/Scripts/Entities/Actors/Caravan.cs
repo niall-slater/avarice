@@ -17,6 +17,8 @@ public class Caravan : MovingUnit
 
     private Mine _currentMine;
 
+    public Rigidbody2D Body;
+
     public enum JourneyState
     {
         MAKING_ROUNDS,
@@ -54,7 +56,12 @@ public class Caravan : MovingUnit
         if (collision.gameObject.CompareTag("Monster"))
         {
             Hurt(1f, null);
+            return;
         }
+
+        var bounceForce = Body.mass * 2f;
+        var bounceBack = -(collision.transform.position - transform.position).normalized * bounceForce;
+        Body.AddForce(bounceBack, ForceMode2D.Impulse);
     }
 
     protected void Update()

@@ -64,6 +64,8 @@ public class Monster : Actor
     public float WiggleInterval = 1f;
     private float _wiggleTicker;
 
+    float _lifeTicker;
+
     /// <summary>
     /// One-off logic for starting a behaviour
     /// </summary>
@@ -108,10 +110,12 @@ public class Monster : Actor
         ActorEventHub.Instance.RaiseOnMonsterSpawned(this);
         GameController.RefreshMonsterCount();
         ScoreEventHub.Instance.OnBioBombDetonation += Kill;
+        _lifeTicker = 0f;
     }
 
     void Update()
     {
+        _lifeTicker += Time.deltaTime;
         if (_crawlingTicker >= 0f)
         {
             _crawlingTicker -= Time.deltaTime;
@@ -178,9 +182,8 @@ public class Monster : Actor
             GetRandomWanderTarget();
         }
         
-        if (Mathf.RoundToInt(Time.time) % 10 == 0)
+        if (Mathf.RoundToInt(_lifeTicker) % 5 == 0)
         {
-            _currentBehaviour = Behaviour.ATTACK;
             var enemy = GameObject.FindGameObjectWithTag("Marine");
             if (enemy == null)
             {
@@ -192,6 +195,7 @@ public class Monster : Actor
             }
 
             _target = enemy;
+            _currentBehaviour = Behaviour.ATTACK;
         }
     }
 
@@ -202,24 +206,15 @@ public class Monster : Actor
         return target;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
         if (_target != null)
             return;
 
-        if (collision.gameObject.CompareTag("Building"))
+        if (collider.gameObject.layer != LayerMask.NameToLayer("Bullets"))
         {
-            _target = collision.gameObject;
+            _target = collider.gameObject;
             CurrentBehaviour = Behaviour.ATTACK;
-        }
-        else if (collision.gameObject.CompareTag("Marine"))
-        {
-            _target = collision.gameObject;
-            CurrentBehaviour = Behaviour.ATTACK;
-        }
-        else if (collision.gameObject.CompareTag("Caravan"))
-        {
-            Kill(null);
         }
     }
 
@@ -228,9 +223,17 @@ public class Monster : Actor
         if (collision.gameObject.CompareTag("Bullet"))
         {
             Hurt(GameVariables.BULLET_DAMAGE, null);
+            return;
         }
 
-        var bounceBack = (collision.transform.position - transform.position).normalized;
+        if (collision.gameObject.CompareTag("Caravan"))
+        {
+            Kill(null);
+            return;
+        }
+
+        var bounceForce = Body.mass * 2f;
+        var bounceBack = -(collision.transform.position - transform.position).normalized * bounceForce;
         Body.AddForce(bounceBack, ForceMode2D.Impulse);
     }
 

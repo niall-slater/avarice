@@ -18,4 +18,19 @@ public class Builder : MovingUnit
         base.OnDeselect();
         BuildRangeIndicator.SetActive(false);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Monster"))
+        {
+            if (collision.gameObject.name == "GiantMonster(Clone)")
+            {
+                Hurt(GameVariables.GIANT_MONSTER_ATTACKPOWER, null);
+            }
+            else
+            {
+                Hurt(GameVariables.DEFAULT_MONSTER_ATTACKPOWER, null);
+            }
+        }
+    }
 }
