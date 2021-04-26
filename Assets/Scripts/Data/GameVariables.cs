@@ -21,7 +21,6 @@ public static class GameVariables
     public static float DEPTH_LEVEL_0 = 150f;
     public static float DEPTH_LEVEL_1 = 750f;
     public static float DEPTH_LEVEL_2 = 2500f;
-
     public static float DEPTH_LEVEL_3 = 6500f;
 
     public static float BIO_BOMB_FUSE = 150f;
