@@ -36,6 +36,14 @@ public class Cursor : MonoBehaviour
         SelectedActors = new List<Actor>();
         UIEventHub.Instance.OnBlueprintSelected += HandleBlueprintSelection;
         ActorEventHub.Instance.OnActorDestroyed += HandleActorDestroyed;
+        UIEventHub.Instance.OnSceneReload += HandleSceneReload;
+    }
+
+    private void HandleSceneReload()
+    {
+        UIEventHub.Instance.OnBlueprintSelected -= HandleBlueprintSelection;
+        ActorEventHub.Instance.OnActorDestroyed -= HandleActorDestroyed;
+        UIEventHub.Instance.OnSceneReload -= HandleSceneReload;
     }
 
     private void HandleActorDestroyed(Actor actor, Actor killer)

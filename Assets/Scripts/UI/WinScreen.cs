@@ -8,6 +8,7 @@ public class WinScreen : MonoBehaviour
 {
     public void HaveMercy()
     {
+        UIEventHub.Instance.RaiseOnSceneReload();
         SceneManager.LoadScene(0);
     }
 
@@ -17,7 +18,6 @@ public class WinScreen : MonoBehaviour
         try
         {
             SceneManager.LoadScene(nextIndex);
-            UIEventHub.Instance.RaiseOnSceneReload();
         }
         catch (Exception e)
         {

@@ -10,12 +10,13 @@ public class LoseScreen : MonoBehaviour
 
     public void Retry()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         UIEventHub.Instance.RaiseOnSceneReload();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void GiveUp()
     {
+        UIEventHub.Instance.RaiseOnSceneReload();
         SceneManager.LoadScene(0);
     }
 }
